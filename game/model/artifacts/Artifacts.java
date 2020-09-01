@@ -1,4 +1,4 @@
-package game.artifacts;
+package game.model.artifacts;
 
 public class Artifacts {
 	String type;

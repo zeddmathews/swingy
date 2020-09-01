@@ -1,4 +1,4 @@
-package game.artifacts;
+package game.model.artifacts;
 
 public class Helm extends Artifacts {
 	public Helm(String type, String heroClass, int stats, int minLevel) {
