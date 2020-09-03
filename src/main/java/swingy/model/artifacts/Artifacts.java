@@ -1,4 +1,4 @@
-package src.main.java.swingy.model.artifacts;
+package swingy.model.artifacts;
 
 public class Artifacts {
 	String type;

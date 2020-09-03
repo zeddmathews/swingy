@@ -1,4 +1,4 @@
-package src.main.java.swingy.view;
+package swingy.view;
 
 public class StartGame {
 

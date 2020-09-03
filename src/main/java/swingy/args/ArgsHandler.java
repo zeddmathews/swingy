@@ -1,15 +1,12 @@
-package src.main.java.swingy.args;
+package swingy.args;
 
-import src.main.java.swingy.exception.StandardException;
+import swingy.exception.StandardException;
 
 public class ArgsHandler {
-	// public static String[] args;
-
 	public void filterArgs(String[] args) throws StandardException {
 		try {
-			System.out.println(args.length);
+			// System.out.println(args.length);
 			if (args.length != 1) {
-				// obviously need to check that
 				throw new StandardException("Invalid number of arguments passed");
 			}
 			if (args[0].toLowerCase() != "console" && args[0].toLowerCase() != "gui") {

@@ -1,4 +1,4 @@
-package src.main.java.swingy.model.artifacts;
+package swingy.model.artifacts;
 
 public class Armour extends Artifacts {
 	public Armour(String type, String heroClass, int stats, int minLevel) {

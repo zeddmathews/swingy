@@ -1,4 +1,4 @@
-package src.main.java.swingy.model.characters;
+package swingy.model.characters;
 
 public class BaseHero {
 	String heroName;

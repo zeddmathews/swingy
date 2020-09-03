@@ -1,4 +1,4 @@
-package src.main.java.swingy.controller;
+package swingy.controller;
 
 public class GameplayController {
 
