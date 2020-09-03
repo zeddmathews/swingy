@@ -1,6 +1,7 @@
 package swingy;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import swingy.args.ArgsHandler;
@@ -11,7 +12,7 @@ public class Main {
 	static Scanner userInput;
 	static ArgsHandler argsHandler = new ArgsHandler();
 	static WindowManager windowManager = new WindowManager();
-	public static void main(String[] args) throws StandardException, FileNotFoundException {
+	public static void main(String[] args) throws StandardException, FileNotFoundException, IOException {
 		// formula = (level - 1) * 5 + 10 - (level % 2)
 			argsHandler.filterArgs(args);
 			userInput = new Scanner(System.in);

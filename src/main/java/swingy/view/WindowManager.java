@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 import swingy.storage.HeroStorage;
@@ -11,10 +12,12 @@ import swingy.storage.HeroStorage;
 
 public class WindowManager {
 
-	public static void checkSaveData() throws FileNotFoundException {
+	public static void checkSaveData() throws FileNotFoundException, IOException {
 		try {
 			HeroStorage heroStorage = new HeroStorage();
 			BufferedReader bufferedReader= new BufferedReader(new FileReader("heroes.txt"));
+
+			bufferedReader.close();
 		}
 		catch (FileNotFoundException fnf) {
 			System.out.println(fnf.getMessage());
@@ -22,7 +25,7 @@ public class WindowManager {
 
 	}
 
-	public void gameType(String type, Scanner userInput) throws FileNotFoundException {
+	public void gameType(String type, Scanner userInput) throws FileNotFoundException, IOException {
 		if (type.toLowerCase().equals("console")) {
 			consoleType(userInput);
 		}
@@ -31,7 +34,7 @@ public class WindowManager {
 		}
 	}
 
-	public void consoleType(Scanner userInput) throws FileNotFoundException {
+	public void consoleType(Scanner userInput) throws FileNotFoundException, IOException {
 		checkSaveData();
 		boolean running = true;
 		boolean characterLoaded = false;
@@ -62,7 +65,7 @@ public class WindowManager {
 			System.out.println("Welcome to Swingy");
 	}
 
-	public void guiType(Scanner userInput) throws FileNotFoundException {
+	public void guiType(Scanner userInput) throws FileNotFoundException, IOException {
 		checkSaveData();
 		// userInput = new
 	}

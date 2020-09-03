@@ -2,8 +2,6 @@ package swingy.args;
 
 import java.io.FileNotFoundException;
 
-import javax.swing.*;
-
 import swingy.exception.StandardException;
 
 public class ArgsHandler {
