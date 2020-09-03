@@ -1,9 +1,9 @@
-package src.main.java.swingy;
+package swingy;
 
 import src.main.java.swingy.args.ArgsHandler;
 import src.main.java.swingy.exception.StandardException;
 
-public class Runtime {
+public class Main {
 	static ArgsHandler argsHandler = new ArgsHandler();
 	public static void main(String[] args) throws StandardException {
 		// formula = (level - 1) * 5 + 10 - (level % 2)

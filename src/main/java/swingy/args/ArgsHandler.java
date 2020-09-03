@@ -7,12 +7,13 @@ public class ArgsHandler {
 
 	public void filterArgs(String[] args) throws StandardException {
 		try {
-			if (args.length != 2) {
+			System.out.println(args.length);
+			if (args.length != 1) {
 				// obviously need to check that
 				throw new StandardException("Invalid number of arguments passed");
 			}
-			if (args[1].toLowerCase() != "console" && args[1].toLowerCase() != "gui") {
-				throw new StandardException(args[1] + "is not a valid argument");
+			if (args[0].toLowerCase() != "console" && args[0].toLowerCase() != "gui") {
+				throw new StandardException(args[0] + " is not a valid argument");
 			}
 		}
 		catch (StandardException e){
