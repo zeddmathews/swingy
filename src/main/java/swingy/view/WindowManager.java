@@ -61,6 +61,9 @@ public class WindowManager {
 				System.out.println("Shutting down Swingy...");
 				System.exit(0);
 			}
+			else {
+				System.out.println("What the actual fuck are you smoking");
+			}
 		}
 			System.out.println("Welcome to Swingy");
 	}
