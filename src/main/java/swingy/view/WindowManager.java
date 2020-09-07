@@ -74,11 +74,20 @@ public class WindowManager {
 		// userInput = new
 		JFrame frame = new JFrame();
 
-		JButton button = new JButton("Click");
-		button.setBounds(100, 100, 100, 40); // x, y, width, height
+		JButton newGameButton = new JButton("New game");
+		JButton loadGameButton = new JButton("Load game");
+		JButton switchModeButton = new JButton("Switch mode");
+		JButton quitGameButton = new JButton("Quit game");
+		newGameButton.setBounds(100, 50, 100, 40);
+		loadGameButton.setBounds(100, 100, 100, 40); // x, y, width, height
+		switchModeButton.setBounds(100, 150, 100, 40);
+		quitGameButton.setBounds(100, 200, 100, 40);
 
-		frame.add(button);
-		frame.setSize(400, 400); // width, height
+		frame.add(newGameButton);
+		frame.add(loadGameButton);
+		frame.add(switchModeButton);
+		frame.add(quitGameButton);
+		frame.setSize(1280, 720); // width, height
 		frame.setLayout(null);
 		frame.setVisible(true);
 	}

@@ -1,5 +1,5 @@
 package swingy.controller;
 
-public class CharacterController {
-
+public interface CharacterController {
+	
 }
