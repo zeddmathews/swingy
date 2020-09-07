@@ -1,24 +1,21 @@
 package swingy.model.artifacts;
 
-public class Artifacts {
+public abstract class Artifacts {
 	String type;
-	String heroClass;
+	String affectedStat;
 	int stats;
-	int minLevel;
 
-	public Artifacts(String type, String heroClass, int stats, int minLevel) {
+	public Artifacts(String type, String affectedStat, int stats) {
 		this.type = type;
-		this.heroClass = heroClass;
+		this.affectedStat = affectedStat;
 		this.stats = stats;
-		this.minLevel = minLevel;
 	}
 
 	public String[] artifactData () {
 		String[] artifactData = {
-			this.type,
-			this.heroClass,
-			Integer.toString(this.stats),
-			Integer.toString(this.minLevel)
+			type,
+			affectedStat,
+			Integer.toString(stats)
 		};
 		return artifactData;
 	}

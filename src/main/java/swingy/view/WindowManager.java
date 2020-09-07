@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import javax.swing.*;
 
 import swingy.storage.HeroStorage;
 
@@ -71,5 +72,14 @@ public class WindowManager {
 	public void guiType(Scanner userInput) throws FileNotFoundException, IOException {
 		checkSaveData();
 		// userInput = new
+		JFrame frame = new JFrame();
+
+		JButton button = new JButton("Click");
+		button.setBounds(100, 100, 100, 40); // x, y, width, height
+
+		frame.add(button);
+		frame.setSize(400, 400); // width, height
+		frame.setLayout(null);
+		frame.setVisible(true);
 	}
 }

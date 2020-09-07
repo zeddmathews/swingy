@@ -1,7 +1,7 @@
 package swingy.model.artifacts;
 
 public class Helm extends Artifacts {
-	public Helm(String type, String heroClass, int stats, int minLevel) {
-		super(type, heroClass, stats, minLevel);
+	public Helm(String type, String affectedStat, int stats) {
+		super(type, affectedStat, stats);
 	}
 }
