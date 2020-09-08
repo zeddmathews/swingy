@@ -4,10 +4,10 @@ import swingy.exception.StandardException;
 
 public class Directions {
 	final enum directions {
-		North,
-		East,
-		South,
-		West
+		north,
+		east,
+		south,
+		west
 	}
 
 	String currentDirection;
