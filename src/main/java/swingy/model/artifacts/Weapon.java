@@ -1,11 +1,15 @@
 package swingy.model.artifacts;
 
 public class Weapon extends Artifacts {
-	public Weapon(String type, String affectedStat, int stats, int heroLevel) {
-		super(type, affectedStat, stats, heroLevel);
+	public Weapon(String type, int stats, int heroLevel) {
+		super(type, stats, heroLevel);
 	}
 
-	public int generateStats(String affectedStat, int heroLevel) {
-		return 0;
+	public int generateStats(int heroLevel) {
+		int statChange;
+		Random rand = new Random();
+		int upperbound = 2 * heroLevel;
+		statChange = rand.nextInt(upperbound);
+		return statChange;
 	}
 }

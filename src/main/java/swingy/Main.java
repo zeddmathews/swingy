@@ -3,7 +3,6 @@ package swingy;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-// import javax.swing.*;
 
 import swingy.exception.StandardException;
 import swingy.view.WindowManager;
@@ -23,7 +22,7 @@ public class Main {
 			}
 			else {
 				userInput = new Scanner(System.in);
-				windowManager.gameType(args[0], userInput);
+				windowManager.gameType(args[0], userInput); // handles game mode to launch
 				int formula = (7 - 1) * 5 + 10 - (7 % 2);
 				System.out.println(formula + "x" + formula);
 				System.out.println("kfsdghfdk");

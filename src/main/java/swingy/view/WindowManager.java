@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import javax.swing.*;
 
+import swingy.util.CharacterCreator;
 import swingy.storage.HeroStorage;
 
 
@@ -50,6 +51,10 @@ public class WindowManager {
 			newInput = newInput.toLowerCase();
 			System.out.println(newInput);
 			if (newInput.equals("create")) {
+				System.out.println("Please select a class form the following list:\n\t\"Dwarf\"\n\t\"Elf\"\n\t\"Knight\"\n\t\"Mage\"""""""""");
+				if (!newInput.toLowerCase().equals("dwarf") && !newInput.toLowerCase().equals("dwarf") && !newInput.toLowerCase().equals("dwarf"))
+				CharacterCreator.newCharacter();
+				System.out.println("Please select a name for your character");
 				System.out.println("create new hero menu");
 			}
 			else if (newInput.equals("load")) {
