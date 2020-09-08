@@ -18,7 +18,7 @@ public abstract class Artifacts {
 			type,
 			affectedStat,
 			Integer.toString(stats),
-			Integer.toString(heroLevel);
+			Integer.toString(heroLevel),
 		};
 		return artifactData;
 	}
