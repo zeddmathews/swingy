@@ -1,6 +1,8 @@
 package swingy.model.artifacts;
 
-public class Helm extends Artifacts {
+import swingy.controller.ArtifactController;
+
+public class Helm extends Artifacts implements ArtifactController {
 	public Helm(String type, String affectedStat, int stats, int heroLevel) {
 		super(type, affectedStat, stats, heroLevel);
 	}

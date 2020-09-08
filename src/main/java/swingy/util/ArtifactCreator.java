@@ -1,7 +1,7 @@
 package swingy.util;
 
 public abstract class ArtifactCreator {
-	// public static Artifact newArtifact() {
-
-	// }
+	public static ArtifactController newArtifact(String type, String affectedStat, int stats, int heroLevel) {
+		return new Helm(type, affectedStat, stats, heroLevel);
+	}
 }
