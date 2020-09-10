@@ -2,7 +2,6 @@ package swingy.model.artifacts;
 
 public abstract class Artifacts {
 	String type;
-	String heroCLass;
 	int stats;
 	int heroLevel;
 

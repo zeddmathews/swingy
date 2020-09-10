@@ -1,6 +1,6 @@
 package swingy.controller;
 
 public interface ArtifactController {
-	int generateStats(String affectedStat, int heroLevel);
+	int generateStats(int heroLevel);
 	String[] artifactData();
 }
