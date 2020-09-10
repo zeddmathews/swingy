@@ -2,9 +2,11 @@ package swingy.model.artifacts;
 
 import java.util.Random;
 
-public class Armour extends Artifacts {
+import swingy.controller.ArtifactController;
+
+public class Armour extends Artifacts implements ArtifactController {
 	public Armour(String type, int stats, int heroLevel) {
-		super(type, affectedStat, stats, heroLevel);
+		super(type, stats, heroLevel);
 	}
 
 	public int generateStats(int heroLevel) {

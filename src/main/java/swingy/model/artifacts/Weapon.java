@@ -1,6 +1,10 @@
 package swingy.model.artifacts;
 
-public class Weapon extends Artifacts {
+import java.util.Random;
+
+import swingy.controller.ArtifactController;
+
+public class Weapon extends Artifacts implements ArtifactController {
 	public Weapon(String type, int stats, int heroLevel) {
 		super(type, stats, heroLevel);
 	}

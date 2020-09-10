@@ -1,5 +1,7 @@
 package swingy.model.artifacts;
 
+import java.util.Random;
+
 import swingy.controller.ArtifactController;
 
 public class Helm extends Artifacts implements ArtifactController {
@@ -7,7 +9,7 @@ public class Helm extends Artifacts implements ArtifactController {
 		super(type, stats, heroLevel);
 		this.type = "helm";
 	}
-
+	@Override
 	public int generateStats(int heroLevel) {
 		int statChange;
 		Random rand = new Random();

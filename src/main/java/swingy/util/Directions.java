@@ -3,7 +3,7 @@ package swingy.util;
 import swingy.exception.StandardException;
 
 public class Directions {
-	final enum directions {
+	enum directions {
 		north,
 		east,
 		south,
@@ -20,7 +20,7 @@ public class Directions {
 	// this is a) incomplete and b) probably pointless
 	public String changeDirection(String currentDirection, String inputDirection) throws StandardException {
 		for (directions dir : directions.values()) {
-			if (inputDirection.toLowerCase().equals(dir)) {
+			if (inputDirection.toLowerCase().equals(dir.toString())) {
 				System.out.println("found direction");
 				return (inputDirection);
 			}
