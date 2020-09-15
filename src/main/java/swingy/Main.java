@@ -23,9 +23,9 @@ public class Main {
 			else {
 				userInput = new Scanner(System.in);
 				windowManager.gameType(args[0], userInput); // handles game mode to launch
-				int formula = (7 - 1) * 5 + 10 - (7 % 2);
-				System.out.println(formula + "x" + formula);
-				System.out.println("kfsdghfdk");
+				// int formula = (7 - 1) * 5 + 10 - (7 % 2);
+				// System.out.println(formula + "x" + formula);
+				// System.out.println("kfsdghfdk");
 			}
 		}
 		catch (StandardException se) {

@@ -5,7 +5,7 @@ public abstract class Artifacts {
 	int stats;
 	int heroLevel;
 
-	protected Artifacts(String type, int stats, int heroLevel) {
+	public Artifacts(String type, int stats, int heroLevel) {
 		this.type = type;
 		this.stats = stats;
 		this.heroLevel = heroLevel;
