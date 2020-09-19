@@ -1,19 +1,19 @@
 package swingy.view;
 
 import java.io.BufferedReader;
-import java.io.File;
+// import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 import javax.swing.*;
-import java.awt.event.*;
+// import java.awt.event.*;
 
 import swingy.exception.StandardException;
-import swingy.util.CharacterCreator;
-import swingy.storage.HeroStorage;
+// import swingy.util.CharacterCreator;
+// import swingy.storage.HeroStorage;
 import swingy.view.console.Console;
-import swingy.view.gui.Gui;
+// import swingy.view.gui.Gui;
 
 
 public class WindowManager {
