@@ -5,7 +5,7 @@ import java.sql.*;
 public class Database {
 	private static final String username = "root";
 	private static final String password = "1234";
-	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	private static final String DB_URL = "jdbc:mysql://localhost/";
 
 	public static void createDB() {

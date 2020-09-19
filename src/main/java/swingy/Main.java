@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import swingy.exception.StandardException;
+import swingy.util.Database;
 import swingy.view.WindowManager;
 
 public class Main {
@@ -20,6 +21,7 @@ public class Main {
 				throw new StandardException(args[0] + " is not a valid argument");
 			}
 			else {
+				Database.createDB();
 				userInput = new Scanner(System.in);
 				windowManager.gameType(args[0], userInput); // handles game mode to launch
 				// System.out.println("kfsdghfdk");
