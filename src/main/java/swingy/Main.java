@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import swingy.exception.StandardException;
-import swingy.util.Database;
+import swingy.util.database.Database;
 import swingy.view.WindowManager;
 
 public class Main {

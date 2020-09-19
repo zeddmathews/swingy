@@ -3,9 +3,9 @@ package swingy.view.console;
 import java.util.Scanner;
 
 import swingy.exception.StandardException;
-import swingy.view.console.CreateHero;
-import swingy.view.console.LoadHero;
-import swingy.view.console.SwitchMode;
+// import swingy.view.console.CreateHero;
+// import swingy.view.console.LoadHero;
+// import swingy.view.console.SwitchMode;
 
 public class Console {
 	private boolean createHero = false;
@@ -49,6 +49,7 @@ public class Console {
 				else if (newInput.equals("load")) {
 					loadHero = true;
 					lH = new LoadHero();
+					lH.loadHeroes();
 					System.out.println("load character menu");
 				}
 				else if (newInput.equals("switch")) {
