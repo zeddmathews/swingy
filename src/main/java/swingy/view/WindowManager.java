@@ -12,8 +12,8 @@ import java.awt.event.*;
 import swingy.exception.StandardException;
 import swingy.util.CharacterCreator;
 import swingy.storage.HeroStorage;
-import swingy.view.Console;
-import swingy.view.Gui;
+import swingy.view.console.Console;
+import swingy.view.gui.Gui;
 
 
 public class WindowManager {

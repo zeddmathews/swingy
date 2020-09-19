@@ -12,7 +12,6 @@ public class Main {
 	static WindowManager windowManager = new WindowManager();
 	static String[] err;
 	public static void main(String[] args) throws StandardException, FileNotFoundException, IOException {
-		// formula = (level - 1) * 5 + 10 - (level % 2)
 		try {
 			if (args.length != 1) {
 				throw new StandardException("Invalid number of arguments");
@@ -23,8 +22,6 @@ public class Main {
 			else {
 				userInput = new Scanner(System.in);
 				windowManager.gameType(args[0], userInput); // handles game mode to launch
-				// int formula = (7 - 1) * 5 + 10 - (7 % 2);
-				// System.out.println(formula + "x" + formula);
 				// System.out.println("kfsdghfdk");
 			}
 		}

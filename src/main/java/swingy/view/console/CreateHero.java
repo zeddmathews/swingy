@@ -1,4 +1,4 @@
-package swingy.view;
+package swingy.view.console;
 
 import java.util.Scanner;
 import java.util.Arrays;
@@ -6,92 +6,31 @@ import java.util.Arrays;
 import swingy.exception.StandardException;
 import swingy.util.CharacterCreator;
 
-public class Console {
-	private boolean createHero = false;
-	private boolean loadHero = false;
-	private boolean switchMode = false;
-	private boolean quitGame = false;
+public class CreateHero {
 	private String heroType = null;
 	private String heroName = null;
+	// private Scanner userInput = null;
 	final String[] heroTypes = {
 		"dwarf",
 		"elf",
 		"knight",
 		"mage"
 	};
-	// final String[] menuOptions = {
-	// 	"",
-	// 	"",
-	// 	"",
-	// 	""
-	// };
-
-	public void homeMenu(Scanner userInput) throws StandardException {
-		try {
-			String newInput = "";
-			System.out.println("Welcome to Swingy (Console mode)");
-			do {
-				System.out.println("Please enter one of the following commands to proceed:");
-				System.out.println("\"Create\"\t- Create a new character");
-				System.out.println("\"Load\"\t- Select a pre-existing character");
-				System.out.println("\"Switch\"\t- Switch to gui mode (I wish)");
-				System.out.println("\"Quit\"\t- Quit the game");
-				try {
-					newInput = userInput.nextLine();
-					newInput = newInput.toLowerCase();
-					// System.out.println(newInput);
-				}
-				catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
-				if (newInput.equals("create")) {
-					createHero = true;
-					createHeroMenu(userInput);
-				}
-				else if (newInput.equals("load")) {
-					loadHero = true;
-					System.out.println("load character menu");
-				}
-				else if (newInput.equals("switch")) {
-					switchMode = true;
-					System.out.println("switch to gui");
-				}
-				else if (newInput.equals("quit")) {
-					System.out.println("Shutting down Swingy...");
-					System.exit(0);
-				}
-				else {
-					System.out.println("\nWhat the actual fuck are you smoking\n");
-				}
-			} while (createHero == false || loadHero == false || switchMode == false || quitGame == false);
-
-			// while (userInput.hasNext()) {
-			// }
-				// System.out.println("Welcome to Swingy");
-		}
-		catch (StandardException se) {
-			System.out.println(se.getMessage());
-		}
-		catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
-	private void createHeroMenu(Scanner userInput) throws StandardException {
+	public void createHeroMenu(Scanner userInput) throws StandardException {
 		do {
 			System.out.println("\nPlease select a class from the following list:"
 			+ "\n  ->\"Dwarf\""
 			+ "\n  ->\"Elf\""
 			+ "\n  ->\"Knight\""
 			+ "\n  ->\"Mage\""
-			+ "\n  ->\"Home\"");
+			+ "\n  ->\"Cancel\"");
 			try {
 				this.heroType = userInput.nextLine();
 				this.heroType = this.heroType.toLowerCase();
 				if (!Arrays.asList(this.heroTypes).contains(this.heroType)) {
 					System.out.println(this.heroType +" is not a valid hero type");
 				}
-				if (this.heroType.equals("home")) {
+				if (this.heroType.equals("cancel")) {
 					this.heroType = null;
 					return ;
 				}
@@ -110,7 +49,7 @@ public class Console {
 		}
 	}
 
-	private void createHeroName(Scanner userInput) throws StandardException {
+	public void createHeroName(Scanner userInput) throws StandardException {
 		boolean confirmHeroName = false;
 		try {
 			do {
@@ -146,7 +85,7 @@ public class Console {
 		}
 	}
 
-	private void createHero() throws StandardException {
+	public void createHero() throws StandardException {
 		try {
 			String[] heroArtifacts = {};
 			CharacterCreator.newCharacter(this.heroName, this.heroType, 1, 0, heroArtifacts);
