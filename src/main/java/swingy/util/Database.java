@@ -46,4 +46,51 @@ public class Database {
 			}
 		}
 	}
+
+	public static void loadHeroes() {
+		Connection conn = null;
+		Statement stmt = null;
+		try {
+			Class.forName(JDBC_DRIVER);
+			System.out.println("Connection established");
+			conn = DriverManager.getConnection(DB_URL + "/heroes", username, password);
+			System.out.println("Checking database");
+			stmt = conn.createStatement();
+
+			String sql = "SELECT hero";
+			stmt.executeUpdate(sql);
+		}
+		catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+			}
+			catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			}
+			catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+		}
+	}
+
+	public static void insertHero() {
+
+	}
+
+	public static void deleteHero() {
+
+	}
 }
