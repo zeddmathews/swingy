@@ -22,6 +22,9 @@ public class CreateTable {
 							"heroClass VARCHAR(255) NOT NULL" +
 							"heroLevel INTEGER(10) NOT NULL" +
 							"heroExp INTEGER(10)" +
+							"attack INTEGER(10)" +
+							"defense INTEGER(10)" +
+							"hp INTEGER(10)" +
 							"inventory INTEGER(10)" +
 							")";
 			stmt.executeUpdate(sql);
