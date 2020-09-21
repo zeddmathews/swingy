@@ -25,6 +25,8 @@ public class Main {
 				Database.createDB();
 				CreateTable.createHeroesTable();
 				CreateTable.createInventoryTable();
+				CreateTable.createLevelsTable();
+				CreateTable.validateLevelsTable();
 				userInput = new Scanner(System.in);
 				windowManager.gameType(args[0], userInput); // handles game mode to launch
 				// System.out.println("kfsdghfdk");

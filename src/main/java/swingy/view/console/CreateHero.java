@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 import swingy.exception.StandardException;
+import swingy.model.StartGame;
 import swingy.model.characters.classes.Dwarf;
 import swingy.model.characters.classes.Elf;
 import swingy.model.characters.classes.Knight;
@@ -14,6 +15,7 @@ import swingy.util.database.InsertHero;
 public class CreateHero {
 	private String heroType = null;
 	private String heroName = null;
+	private StartGame startGame;
 	// private Scanner userInput = null;
 	final String[] heroTypes = {
 		"dwarf",
@@ -89,14 +91,14 @@ public class CreateHero {
 
 				}
 			} while (confirmHeroName == false);
-			createHero();
+			createHero(userInput);
 		}
 		catch (StandardException se) {
 			System.out.println(se.getMessage());
 		}
 	}
 
-	public void createHero() throws StandardException {
+	public void createHero(Scanner userInput) throws StandardException {
 		try {
 			String[] heroArtifacts = {};
 			CharacterCreator.newCharacter(this.heroName, this.heroType, 1, 0, heroArtifacts);
@@ -170,6 +172,8 @@ public class CreateHero {
 			}
 			InsertHero.insertHero(this.heroName, this.heroType, 1, 0, stats[0], stats[1], stats[2]);
 			System.out.println("Character successfully created");
+			startGame = new StartGame("console", 1);
+			startGame.renderMap(userInput);
 		}
 		catch (StandardException se) {
 			System.out.println(se.getMessage());
