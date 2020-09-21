@@ -4,7 +4,12 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 import swingy.exception.StandardException;
+import swingy.model.characters.classes.Dwarf;
+import swingy.model.characters.classes.Elf;
+import swingy.model.characters.classes.Knight;
+import swingy.model.characters.classes.Mage;
 import swingy.util.CharacterCreator;
+import swingy.util.database.InsertHero;
 
 public class CreateHero {
 	private String heroType = null;
@@ -15,6 +20,11 @@ public class CreateHero {
 		"elf",
 		"knight",
 		"mage"
+	};
+	private int[] stats = {
+		0,
+		0,
+		0
 	};
 	public void createHeroMenu(Scanner userInput) throws StandardException {
 		do {
@@ -61,13 +71,14 @@ public class CreateHero {
 					String yesNo = null;
 					while (true) {
 						System.out.print("Are you sure you would like your hero's name to be: " + this.heroName + "\n");
+						System.out.println("Yes/No");
 						yesNo = userInput.nextLine();
 						yesNo = yesNo.toLowerCase();
-						if (yesNo.equals("yes")) {
+						if (yesNo.equals("yes") || yesNo.equals("y")) {
 							confirmHeroName = true;
 							break ;
 						}
-						else if (yesNo.equals("no")) {
+						else if (yesNo.equals("no") || yesNo.equals("n")) {
 							this.heroName = null;
 							break ;
 						}
@@ -89,6 +100,75 @@ public class CreateHero {
 		try {
 			String[] heroArtifacts = {};
 			CharacterCreator.newCharacter(this.heroName, this.heroType, 1, 0, heroArtifacts);
+			if (this.heroType.equals("dwarf")) {
+				String [] heroStats = Dwarf.defaultStats();
+				int i = 0;
+				for (String unsplitSats : heroStats) {
+					String splitStat[] = unsplitSats.split(" ");
+					if (i == 0) {
+						stats[0] = Integer.parseInt(splitStat[1]);
+					}
+					if (i == 1) {
+						stats[1] = Integer.parseInt(splitStat[1]);
+					}
+					if (i == 2) {
+						stats[2] = Integer.parseInt(splitStat[1]);
+					}
+					i++;
+				}
+			}
+			else if (this.heroType.equals("elf")) {
+				String [] heroStats = Elf.defaultStats();
+				int i = 0;
+				for (String unsplitSats : heroStats) {
+					String splitStat[] = unsplitSats.split(" ");
+					if (i == 0) {
+						stats[0] = Integer.parseInt(splitStat[1]);
+					}
+					if (i == 1) {
+						stats[1] = Integer.parseInt(splitStat[1]);
+					}
+					if (i == 2) {
+						stats[2] = Integer.parseInt(splitStat[1]);
+					}
+					i++;
+				}
+			}
+			else if (this.heroType.equals("knight")) {
+				String [] heroStats = Knight.defaultStats();
+				int i = 0;
+				for (String unsplitSats : heroStats) {
+					String splitStat[] = unsplitSats.split(" ");
+					if (i == 0) {
+						stats[0] = Integer.parseInt(splitStat[1]);
+					}
+					if (i == 1) {
+						stats[1] = Integer.parseInt(splitStat[1]);
+					}
+					if (i == 2) {
+						stats[2] = Integer.parseInt(splitStat[1]);
+					}
+					i++;
+				}
+			}
+			else if (this.heroType.equals("mage")) {
+				String [] heroStats = Mage.defaultStats();
+				int i = 0;
+				for (String unsplitSats : heroStats) {
+					String splitStat[] = unsplitSats.split(" ");
+					if (i == 0) {
+						stats[0] = Integer.parseInt(splitStat[1]);
+					}
+					if (i == 1) {
+						stats[1] = Integer.parseInt(splitStat[1]);
+					}
+					if (i == 2) {
+						stats[2] = Integer.parseInt(splitStat[1]);
+					}
+					i++;
+				}
+			}
+			InsertHero.insertHero(this.heroName, this.heroType, 1, 0, stats[0], stats[1], stats[2]);
 			System.out.println("Character successfully created");
 		}
 		catch (StandardException se) {

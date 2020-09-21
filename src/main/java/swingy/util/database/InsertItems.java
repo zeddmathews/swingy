@@ -2,10 +2,9 @@ package swingy.util.database;
 
 import java.sql.*;
 
-public class UpdateHero {
-	public static void updateHero(
-		String heroName, String heroClass, int heroLevel, int heroExp,
-		int attack, int defense, int hp, int inventory, int x, int y) {
+public class InsertItems {
+	public static void insertItems(
+		String heroName, String itemName, String affectedStat, int statValue) {
 			Connection conn = null;
 			PreparedStatement preparedStatement = null;
 			try {
@@ -15,20 +14,14 @@ public class UpdateHero {
 				System.out.println("Checking database status");
 
 				String sql =
-					"UPDATE heroes" +
-					"SET heroName = ?, heroClass = ?, heroLevel = ?, heroExp = ?, " +
-					"attack = ?, defense = ?, hp = ?, inventory = ?, currentX = ?, currentY = ?";
+				"INSERT INTO inventory" +
+				"(heroName, heroClass, heroLevel, heroExp, attack, defense, hp, inventory, currentX, currentY)" +
+				"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				preparedStatement = conn.prepareStatement(sql);
 				preparedStatement.setString(1, heroName);
-				preparedStatement.setString(2, heroClass);
-				preparedStatement.setInt(3, heroLevel);
-				preparedStatement.setInt(4, heroExp);
-				preparedStatement.setInt(5, attack);
-				preparedStatement.setInt(6, defense);
-				preparedStatement.setInt(7, hp);
-				preparedStatement.setInt(8, inventory);
-				preparedStatement.setInt(9, x);
-				preparedStatement.setInt(10, y);
+				preparedStatement.setString(2, itemName);
+				preparedStatement.setString(3, affectedStat);
+				preparedStatement.setInt(4, statValue);
 				preparedStatement.execute();
 			}
 			catch (SQLException sqle) {

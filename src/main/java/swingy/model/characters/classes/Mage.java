@@ -8,8 +8,14 @@ public class Mage extends BaseHero implements CharacterController {
 		super(heroName, heroClass);
 	}
 
-	public String defaultStats() {
-		return ("");
+	public static String[] defaultStats() {
+		String[] arr = {
+			"attack 10",
+			"defense 10",
+			"hp 15",
+			"speed 10"
+		};
+		return (arr);
 	}
 	// dps for years, no hp
 }

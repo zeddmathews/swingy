@@ -39,7 +39,7 @@ public class WindowManager {
 				// consoleType(userInput);
 			}
 			else if (type.toLowerCase().equals("gui")) {
-				guiType(userInput);
+				guiType();
 			}
 		}
 		catch (Exception e) {
@@ -51,7 +51,7 @@ public class WindowManager {
 
 	// }
 
-	public void guiType(Scanner userInput) throws FileNotFoundException, IOException, StandardException {
+	public static void guiType() throws FileNotFoundException, IOException, StandardException {
 		// userInput = new
 		JFrame frame = new JFrame();
 

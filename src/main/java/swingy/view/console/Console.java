@@ -3,9 +3,6 @@ package swingy.view.console;
 import java.util.Scanner;
 
 import swingy.exception.StandardException;
-// import swingy.view.console.CreateHero;
-// import swingy.view.console.LoadHero;
-// import swingy.view.console.SwitchMode;
 
 public class Console {
 	private boolean createHero = false;
@@ -14,14 +11,7 @@ public class Console {
 	private boolean quitGame = false;
 	private CreateHero cH;
 	private LoadHero lH;
-	private SwitchMode sM;
-
-	// final String[] menuOptions = {
-	// 	"",
-	// 	"",
-	// 	"",
-	// 	""
-	// };
+	// private SwitchMode sM;
 
 	public void homeMenu(Scanner userInput) throws StandardException {
 		try {
@@ -49,12 +39,12 @@ public class Console {
 				else if (newInput.equals("load")) {
 					loadHero = true;
 					lH = new LoadHero();
-					lH.loadHeroes();
+					lH.loadHeroes(userInput);
 					System.out.println("load character menu");
 				}
 				else if (newInput.equals("switch")) {
 					switchMode = true;
-					sM = new SwitchMode();
+					SwitchMode.switchMode("console", userInput);
 					System.out.println("switch to gui");
 				}
 				else if (newInput.equals("quit")) {

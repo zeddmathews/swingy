@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import swingy.exception.StandardException;
+import swingy.util.database.CreateTable;
 import swingy.util.database.Database;
 import swingy.view.WindowManager;
 
@@ -22,6 +23,8 @@ public class Main {
 			}
 			else {
 				Database.createDB();
+				CreateTable.createHeroesTable();
+				CreateTable.createInventoryTable();
 				userInput = new Scanner(System.in);
 				windowManager.gameType(args[0], userInput); // handles game mode to launch
 				// System.out.println("kfsdghfdk");
