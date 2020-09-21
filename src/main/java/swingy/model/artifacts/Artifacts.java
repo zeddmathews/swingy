@@ -1,5 +1,7 @@
 package swingy.model.artifacts;
 
+// import javax.validation.constraints.NotNull;
+
 public abstract class Artifacts {
 	String type;
 	int stats;
