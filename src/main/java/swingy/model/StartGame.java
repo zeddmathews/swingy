@@ -21,14 +21,23 @@ public class StartGame {
 	// }
 	protected String gameMode;
 	protected int level;
-	protected final int formula = (level - 1) * 5 + 10 - (level % 2);
 	public StartGame (String gameMode, int heroLevel) {
 		this.gameMode = gameMode;
+		this.level = heroLevel;
 	}
 
 	public void renderMap(Scanner userInput) {
+		final int formula = (this.level - 1) * 5 + 10 - (this.level % 2);
 		String[] arr = new String[formula];
-		System.out.println(arr);
-		System.out.println(formula + "x" + formula);
+		for (int i = 0; i < formula; i++) {
+			arr[i] = "*";
+		}
+		for (String test : arr) {
+			System.out.println(test);
+		}
+		do {
+			//handle limits of map
+		} while (true);
+		// System.out.println(arr);
 	}
 }

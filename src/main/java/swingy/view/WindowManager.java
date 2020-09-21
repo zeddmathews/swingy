@@ -47,12 +47,7 @@ public class WindowManager {
 		}
 	}
 
-	// public void consoleType(Scanner userInput) throws FileNotFoundException, IOException, StandardException {
-
-	// }
-
 	public static void guiType() throws FileNotFoundException, IOException, StandardException {
-		// userInput = new
 		JFrame frame = new JFrame();
 
 		JButton newGameButton = new JButton("New game");

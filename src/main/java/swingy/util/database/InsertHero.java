@@ -3,7 +3,7 @@ package swingy.util.database;
 import java.sql.*;
 
 public class InsertHero {
-	public static void insertHero(String heroName, String heroClass, int heroLevel, int heroExp, int attack, int defense, int hp) {
+	public static void insertHero(String heroName, String heroClass, int heroLevel, int heroExp, int attack, int defense, int hp, int x, int y) {
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -25,8 +25,8 @@ public class InsertHero {
 			preparedStatement.setInt(6, defense);
 			preparedStatement.setInt(7, hp);
 			preparedStatement.setInt(8, 0);
-			preparedStatement.setInt(9, 0);
-			preparedStatement.setInt(10, 0);
+			preparedStatement.setInt(9, x);
+			preparedStatement.setInt(10, y);
 			preparedStatement.execute();
 		}
 		catch (SQLException sqle) {
