@@ -18,10 +18,10 @@ public class LoadHeroes {
 			System.out.println("Checking database");
 			stmt = conn.createStatement();
 
-			String sql = "SELECT heroName, heroClass, heroLevel, heroExp, attack, defense, hp, inventory FROM heroes";
+			String sql = "SELECT heroName, heroClass, heroLevel, heroExp, attack, defense, hp, inventory, currentX, currentY FROM heroes";
 			rSet = stmt.executeQuery(sql);
 			while (rSet.next()) {
-				arrayList.add(rSet.getString("heroName") + " " + rSet.getInt("heroLevel"));
+				arrayList.add(rSet.getString("heroName") + " " + rSet.getInt("heroLevel") + " " + rSet.getInt("currentX") + " " + rSet.getInt("currentY"));
 			}
 		}
 		catch (SQLException sqle) {

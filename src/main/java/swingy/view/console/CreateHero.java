@@ -177,9 +177,10 @@ public class CreateHero {
 				}
 			}
 			// use formula to get default spawn point
-			InsertHero.insertHero(this.heroName, this.heroType, 1, 0, stats[0], stats[1], stats[2], 1, 1);
+			final int formula = (1 - 1) * 5 + 10 - (1 % 2);
+			InsertHero.insertHero(this.heroName, this.heroType, 1, 0, stats[0], stats[1], stats[2], formula/2, formula/2);
 			System.out.println("Character successfully created");
-			startGame = new StartGame("console", 1, this.heroName);
+			startGame = new StartGame("console", 1, this.heroName, formula/2, formula/2);
 			startGame.renderMap(userInput);
 		}
 		catch (StandardException se) {

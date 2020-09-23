@@ -12,6 +12,8 @@ public class LoadHero {
 	private ArrayList<String> aList;
 	private ArrayList<String> heroName = new ArrayList<String>();
 	private ArrayList<String> heroLevel =  new ArrayList<String>();
+	private ArrayList<String> xcoord =  new ArrayList<String>();
+	private ArrayList<String> ycoord =  new ArrayList<String>();
 	private StartGame startGame;
 	private String yesNo = null;
 	private String loadCharacter = null;
@@ -23,6 +25,8 @@ public class LoadHero {
 				String[] split = heroData.split(" ");
 				heroName.add(split[0]);
 				heroLevel.add(split[1]);
+				xcoord.add(split[2]);
+				ycoord.add(split[3]);
 			}
 			System.out.println(heroLevel);
 			do {
@@ -68,7 +72,9 @@ public class LoadHero {
 				}
 			} while (heroSelected == false);
 			if (heroSelected == true) {
-				startGame = new StartGame("console", 1, this.loadCharacter); // need to make alist give int level
+				int getIndex = heroName.indexOf(newInput);
+				startGame = new StartGame("console", Integer.parseInt(heroLevel.get(getIndex)), this.loadCharacter,
+						Integer.parseInt(xcoord.get(getIndex)), Integer.parseInt(ycoord.get(getIndex))); // need to make alist give int level
 				startGame.renderMap(userInput);
 			}
 		}
