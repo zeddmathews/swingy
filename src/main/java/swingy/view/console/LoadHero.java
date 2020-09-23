@@ -1,6 +1,7 @@
 package swingy.view.console;
 
 import java.util.Scanner;
+// import java.util.Arrays;
 import java.util.ArrayList;
 
 import swingy.model.StartGame;
@@ -9,41 +10,43 @@ import swingy.util.database.LoadHeroes;
 public class LoadHero {
 	private boolean heroSelected = false;
 	private ArrayList<String> aList;
+	private ArrayList<String> heroName = new ArrayList<String>();
+	private ArrayList<String> heroLevel =  new ArrayList<String>();
 	private StartGame startGame;
+	private String yesNo = null;
 	public void loadHeroes(Scanner userInput) {
 		try {
 			String newInput = null;
 			aList = LoadHeroes.loadHeroes();
-			System.out.println(aList);
-			// while (rSet.next()) {
-			// 	System.out.println(
-			// 		"Name " + rSet.getString("heroName") +
-			// 		"\tClass " + rSet.getString("heroClass") +
-			// 		"\tLevel " +rSet.getInt("heroLevel") +
-			// 		"\tExperience " +rSet.getInt("heroExp") +
-			// 		"\tAttack " +rSet.getInt("attack") +
-			// 		"\tDefense " +rSet.getInt("defense") +
-			// 		"\tHP " +rSet.getInt("hp") +
-			// 		"\tInventory " +rSet.getInt("inventory") + "/10"
-			// 	);
-			// }
+			for (String heroData : aList) {
+				String[] split = heroData.split(" ");
+				heroName.add(split[0]);
+				heroLevel.add(split[1]);
+			}
+			System.out.println(heroLevel);
 			do {
 				System.out.println("Please select a hero");
+				for (String hName : heroName) {
+					System.out.println(hName);
+				}
 				try {
 					newInput = userInput.nextLine();
 					newInput = newInput.toLowerCase();
-					if (!aList.contains(newInput)) {
+					if (!heroName.contains(newInput)) {
 						System.out.println("such waow");
 					}
 					else {
 						System.out.println("feelsbadman");
 						while (true) {
 							System.out.println("Are you sure you would like to load the hero: " + newInput);
-							if (newInput.equals("yes") || newInput.equals("y")) {
+							System.out.println("Yes/No");
+							yesNo = userInput.nextLine();
+							yesNo = yesNo.toLowerCase();
+							if (yesNo.equals("yes") || yesNo.equals("y")) {
 								heroSelected = true;
 								break ;
 							}
-							else if (newInput.equals("no") || newInput.equals("n")) {
+							else if (yesNo.equals("no") || yesNo.equals("n")) {
 								break ;
 							}
 							else {

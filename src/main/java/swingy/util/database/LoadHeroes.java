@@ -21,7 +21,7 @@ public class LoadHeroes {
 			String sql = "SELECT heroName, heroClass, heroLevel, heroExp, attack, defense, hp, inventory FROM heroes";
 			rSet = stmt.executeQuery(sql);
 			while (rSet.next()) {
-				arrayList.add(rSet.getString("heroName"));
+				arrayList.add(rSet.getString("heroName") + " " + rSet.getInt("heroLevel"));
 				// System.out.println(
 				// 	"Name " + rSet.getString("heroName") +
 				// 	"\tClass " + rSet.getString("heroClass") +
@@ -36,6 +36,9 @@ public class LoadHeroes {
 		}
 		catch (SQLException sqle) {
 			sqle.printStackTrace();
+		}
+		catch (NullPointerException npe) {
+			npe.printStackTrace();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
