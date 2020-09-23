@@ -63,8 +63,10 @@ public class LoadHeroes {
 	}
 	public static ArrayList<String> loadHero(String heroName) {
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement pStatement = null;
+		PreparedStatement stmt = null;
 		ResultSet rSet = null;
+		ResultSet resultSet = null;
 		// create arraylist and return that for accessing data
 		// put names into an arraylist and use that for selection
 		ArrayList<String> arrayList = new ArrayList<String>();
@@ -73,13 +75,23 @@ public class LoadHeroes {
 			System.out.println("Connection established");
 			conn = DriverManager.getConnection(Database.DB_URL + "swingy", Database.username, Database.password);
 			System.out.println("Checking database");
-			stmt = conn.createStatement();
 
-			String sql = "SELECT heroName, heroClass, heroLevel, heroExp, attack, defense, hp, inventory FROM heroes";
-			rSet = stmt.executeQuery(sql);
-			while (rSet.next()) {
-				arrayList.add(rSet.getString("heroName") + " " + rSet.getInt("heroLevel"));
-			}
+			String sql = "SELECT heroName, heroClass, heroLevel, heroExp, attack, defense, hp, inventory FROM heroes WHERE heroName = ?";
+			pStatement = conn.prepareStatement(sql);
+			pStatement.setString(1, heroName);
+			rSet = pStatement.executeQuery();
+			rSet.next();
+
+			String fetchExp = "SELECT expRequired FROM levels WHERE heroLevel = ?";
+			stmt = conn.prepareStatement(fetchExp);
+			int totalExp = rSet.getInt("heroLevel");
+			stmt.setInt(1, totalExp);
+			resultSet = stmt.executeQuery();
+			resultSet.next();
+
+			arrayList.add(rSet.getString("heroName") + " " + rSet.getString("heroClass") + " " + rSet.getInt("heroLevel"));
+			arrayList.add("Exp: " + rSet.getInt("heroExp") + "/" + resultSet.getInt("expRequired"));
+			arrayList.add(rSet.getInt("attack") + " " + rSet.getInt("defense") + " " + rSet.getInt("hp"));
 		}
 		catch (SQLException sqle) {
 			sqle.printStackTrace();
