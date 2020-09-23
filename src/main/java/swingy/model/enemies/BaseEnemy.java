@@ -1,5 +1,9 @@
 package swingy.model.enemies;
 
-public class BaseEnemy {
-	
+public abstract class BaseEnemy {
+	String enemyTier;
+
+	public BaseEnemy(String enemyTier) {
+		this.enemyTier = enemyTier;
+	}
 }
