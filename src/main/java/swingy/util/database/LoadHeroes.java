@@ -61,14 +61,13 @@ public class LoadHeroes {
 		}
 		return (arrayList);
 	}
+
 	public static ArrayList<String> loadHero(String heroName) {
 		Connection conn = null;
 		PreparedStatement pStatement = null;
 		PreparedStatement stmt = null;
 		ResultSet rSet = null;
 		ResultSet resultSet = null;
-		// create arraylist and return that for accessing data
-		// put names into an arraylist and use that for selection
 		ArrayList<String> arrayList = new ArrayList<String>();
 		try {
 			Class.forName(Database.JDBC_DRIVER);
@@ -91,7 +90,7 @@ public class LoadHeroes {
 
 			arrayList.add(rSet.getString("heroName") + " " + rSet.getString("heroClass") + " " + rSet.getInt("heroLevel"));
 			arrayList.add("Exp: " + rSet.getInt("heroExp") + "/" + resultSet.getInt("expRequired"));
-			arrayList.add(rSet.getInt("attack") + " " + rSet.getInt("defense") + " " + rSet.getInt("hp"));
+			arrayList.add("Atk: " + rSet.getInt("attack") + " " + "Def: " + rSet.getInt("defense") + " " + "HP: " + rSet.getInt("hp"));
 		}
 		catch (SQLException sqle) {
 			sqle.printStackTrace();

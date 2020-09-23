@@ -36,7 +36,9 @@ public class StartGame {
 		final int formula = (this.level - 1) * 5 + 10 - (this.level % 2);
 		String[] arr = new String[formula];
 		aList = LoadHeroes.loadHero(this.heroName);
-		System.out.println(aList);
+		for (String heroData : aList) {
+				System.out.println(heroData);
+			}
 		for (int i = 0; i < formula; i++) {
 			arr[i] = "*";
 		}
