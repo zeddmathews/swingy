@@ -14,6 +14,7 @@ public class LoadHero {
 	private ArrayList<String> heroLevel =  new ArrayList<String>();
 	private StartGame startGame;
 	private String yesNo = null;
+	private String loadCharacter = null;
 	public void loadHeroes(Scanner userInput) {
 		try {
 			String newInput = null;
@@ -29,13 +30,13 @@ public class LoadHero {
 				for (String hName : heroName) {
 					System.out.println(hName);
 				}
+				System.out.println("\n\"Cancel\"");
 				try {
 					newInput = userInput.nextLine();
 					newInput = newInput.toLowerCase();
-					if (!heroName.contains(newInput)) {
+					if (heroName.contains(newInput)) {
 						System.out.println("such waow");
-					}
-					else {
+						this.loadCharacter = newInput;
 						System.out.println("feelsbadman");
 						while (true) {
 							System.out.println("Are you sure you would like to load the hero: " + newInput);
@@ -47,6 +48,7 @@ public class LoadHero {
 								break ;
 							}
 							else if (yesNo.equals("no") || yesNo.equals("n")) {
+								this.loadCharacter = null;
 								break ;
 							}
 							else {
@@ -54,13 +56,21 @@ public class LoadHero {
 							}
 						}
 					}
+					else if (newInput.equals("cancel")) {
+						break ;
+					}
+					else {
+						System.out.println("Invalid option");
+					}
 				}
 				catch (Exception e) {
 					e.printStackTrace();
 				}
 			} while (heroSelected == false);
-			startGame = new StartGame("console", 1); // need to make alist give int level
-			startGame.renderMap(userInput);
+			if (heroSelected == true) {
+				startGame = new StartGame("console", 1, this.loadCharacter); // need to make alist give int level
+				startGame.renderMap(userInput);
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();

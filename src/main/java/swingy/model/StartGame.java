@@ -21,9 +21,11 @@ public class StartGame {
 	// }
 	protected String gameMode;
 	protected int level;
-	public StartGame (String gameMode, int heroLevel) {
+	protected String heroName;
+	public StartGame (String gameMode, int heroLevel, String heroName) {
 		this.gameMode = gameMode;
 		this.level = heroLevel;
+		this.heroName = heroName;
 	}
 
 	public void renderMap(Scanner userInput) {

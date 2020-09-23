@@ -2,10 +2,11 @@ package swingy.util.database;
 
 import java.sql.*;
 
-public class InsertHero {
-	public static void insertHero(String heroName, String heroClass, int heroLevel, int heroExp, int attack, int defense, int hp, int x, int y) {
+public class CheckExists {
+	public static boolean checkHero(String heroName) {
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
+		boolean nameFound = false;
 		try {
 			Class.forName(Database.JDBC_DRIVER);
 			System.out.println("Connection established");
@@ -19,26 +20,11 @@ public class InsertHero {
 			ResultSet rSet = pStatement.executeQuery();
 			rSet.next();
 			System.out.println(rSet.getInt(1));
-			if (rSet.getInt(1) == 0) {
-				String sql =
-					"INSERT INTO heroes" +
-					"(heroName, heroClass, heroLevel, heroExp, attack, defense, hp, inventory, currentX, currentY)" +
-					"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				preparedStatement = conn.prepareStatement(sql);
-				preparedStatement.setString(1, heroName);
-				preparedStatement.setString(2, heroClass);
-				preparedStatement.setInt(3, heroLevel);
-				preparedStatement.setInt(4, heroExp);
-				preparedStatement.setInt(5, attack);
-				preparedStatement.setInt(6, defense);
-				preparedStatement.setInt(7, hp);
-				preparedStatement.setInt(8, 0);
-				preparedStatement.setInt(9, x);
-				preparedStatement.setInt(10, y);
-				preparedStatement.execute();
+			if (rSet.getInt(1) > 0) {
+				nameFound = true;
 			}
 			else {
-				System.out.println(heroName + " has already been taken");
+				nameFound = false;
 			}
 		}
 		catch (SQLException sqle) {
@@ -65,5 +51,6 @@ public class InsertHero {
 				sqle.printStackTrace();
 			}
 		}
+		return (nameFound);
 	}
 }

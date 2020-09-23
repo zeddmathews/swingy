@@ -10,6 +10,7 @@ import swingy.model.characters.classes.Elf;
 import swingy.model.characters.classes.Knight;
 import swingy.model.characters.classes.Mage;
 import swingy.util.CharacterCreator;
+import swingy.util.database.CheckExists;
 import swingy.util.database.InsertHero;
 
 public class CreateHero {
@@ -70,25 +71,30 @@ public class CreateHero {
 				this.heroName = this.heroName.toLowerCase();
 				System.out.println(this.heroName);
 				if (this.heroName != null) {
-					String yesNo = null;
-					while (true) {
-						System.out.print("Are you sure you would like your hero's name to be: " + this.heroName + "\n");
-						System.out.println("Yes/No");
-						yesNo = userInput.nextLine();
-						yesNo = yesNo.toLowerCase();
-						if (yesNo.equals("yes") || yesNo.equals("y")) {
-							confirmHeroName = true;
-							break ;
-						}
-						else if (yesNo.equals("no") || yesNo.equals("n")) {
-							this.heroName = null;
-							break ;
-						}
-						else {
-							System.out.println("Invalid option");
+					boolean heroNameFound = CheckExists.checkHero(this.heroName);
+					if (heroNameFound == false) {
+						String yesNo = null;
+						while (true) {
+							System.out.print("Are you sure you would like your hero's name to be: " + this.heroName + "\n");
+							System.out.println("Yes/No");
+							yesNo = userInput.nextLine();
+							yesNo = yesNo.toLowerCase();
+							if (yesNo.equals("yes") || yesNo.equals("y")) {
+								confirmHeroName = true;
+								break ;
+							}
+							else if (yesNo.equals("no") || yesNo.equals("n")) {
+								this.heroName = null;
+								break ;
+							}
+							else {
+								System.out.println("Invalid option");
+							}
 						}
 					}
-
+					else {
+						System.out.println(this.heroName + " has been taken");
+					}
 				}
 			} while (confirmHeroName == false);
 			createHero(userInput);
@@ -173,7 +179,7 @@ public class CreateHero {
 			// use formula to get default spawn point
 			InsertHero.insertHero(this.heroName, this.heroType, 1, 0, stats[0], stats[1], stats[2], 1, 1);
 			System.out.println("Character successfully created");
-			startGame = new StartGame("console", 1);
+			startGame = new StartGame("console", 1, this.heroName);
 			startGame.renderMap(userInput);
 		}
 		catch (StandardException se) {
