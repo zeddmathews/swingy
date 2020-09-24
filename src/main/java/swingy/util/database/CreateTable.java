@@ -121,7 +121,8 @@ public class CreateTable {
 							"id INTEGER NOT NULL AUTO_INCREMENT, " +
 							"PRIMARY KEY(id), " +
 							"heroLevel INTEGER(10) NOT NULL, " +
-							"expRequired INTEGER(10) NOT NULL" +
+							"expRequired INTEGER(10) NOT NULL, " +
+							"expGained INTEGER(10) NOT NULL" +
 							")";
 			stmt.executeUpdate(sql);
 			System.out.println("Table creation complete");
@@ -171,12 +172,13 @@ public class CreateTable {
 			if (results == 0) {
 				sql =
 					"INSERT INTO levels" +
-					"(heroLevel, expRequired)" +
-					"VALUES(?, ?)";
+					"(heroLevel, expRequired, expGained)" +
+					"VALUES(?, ?, ?)";
 				preparedStatement = conn.prepareStatement(sql);
 				for (int i = 1; i <= 10; i++) {
 					preparedStatement.setInt(1, i);
 					preparedStatement.setInt(2, (i * 100));
+					preparedStatement.setInt(3, (i * 10));
 					preparedStatement.execute();
 				}
 			}

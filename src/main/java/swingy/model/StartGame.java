@@ -10,6 +10,7 @@ import swingy.controller.ArtifactController;
 // import swingy.model.artifacts.Weapon;
 import swingy.util.ArtifactCreator;
 import swingy.util.database.InventoryManagement;
+import swingy.util.database.LevelUp;
 import swingy.util.database.LoadHeroes;
 import swingy.util.database.UpdateHero;
 
@@ -30,11 +31,8 @@ public class StartGame {
 	protected int hp;
 	protected int mapLimit;
 	protected int expOverflow;
+	protected int mapExp;
 	protected ArrayList<ArtifactController> artifactList = new ArrayList<ArtifactController>();
-	// //default weapon variables
-	// Weapon weapon;
-	// protected Armour armour;
-	// protected Helm helm;
 	protected final String[] directions = {
 		"north",
 		"south",
@@ -81,7 +79,8 @@ public class StartGame {
 			}
 			countData++;
 		}
-		System.out.println(this.currentItems);
+		// System.out.println(this.currentItems);
+		this.mapExp = LevelUp.fetchMapExp(this.heroLevel);
 		if (this.heroLevel == 1 && this.currentItems == 0) {
 			this.currentItems++;
 			// weapon = new Weapon("Sword", 10, this.heroLevel);
@@ -134,9 +133,17 @@ public class StartGame {
 				System.out.println("Feels random input");
 			}
 
-		} while (xcoord > 0 || ycoord > 0 || xcoord < this.mapLimit || ycoord < this.mapLimit);
-		if (xcoord == 0 || ycoord == 0 || xcoord == this.mapLimit || ycoord == this.mapLimit) {
-
+		} while (this.xcoord > 0 || this.ycoord > 0 || this.xcoord < this.mapLimit || this.ycoord < this.mapLimit);
+		if (this.xcoord == 0 || this.ycoord == 0 || this.xcoord == this.mapLimit || this.ycoord == this.mapLimit) {
+			System.out.println("map limits reached");
+			this.heroExp = this.heroExp + this.mapExp;
+			if (this.heroExp > levelUpExp) {
+				this.expOverflow = this.heroExp - this.levelUpExp;
+			}
+			else if (this.heroExp == this.levelUpExp) {
+				UpdateHero.updateHero(this.heroName, this.heroClass, this.heroLevel, this.heroExp, this.attack, this.defense, this.hp, this.currentItems, this.xcoord, this.ycoord);
+				System.out.println("You have levelled up");
+			}
 		}
 		// System.out.println(arr);
 	}
