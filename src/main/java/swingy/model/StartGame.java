@@ -30,7 +30,6 @@ public class StartGame {
 	protected int defense;
 	protected int hp;
 	protected int mapLimit;
-	protected int expOverflow;
 	protected int mapExp;
 	protected ArrayList<ArtifactController> artifactList = new ArrayList<ArtifactController>();
 	protected final String[] directions = {
@@ -81,6 +80,12 @@ public class StartGame {
 		}
 		// System.out.println(this.currentItems);
 		this.mapExp = LevelUp.fetchMapExp(this.heroLevel);
+		if (this.heroExp == this.levelUpExp) {
+			this.heroLevel = this.heroLevel + 1;
+			StartGame startGame = new StartGame(this.gameMode, this.heroLevel, this.heroName, this.xcoord, this.ycoord);
+			UpdateHero.updateHero(this.heroName, this.heroClass, this.heroLevel, this.heroExp, this.attack, this.defense, this.hp, this.currentItems, this.xcoord, this.ycoord);
+			startGame.renderMap(userInput);
+		}
 		if (this.heroLevel == 1 && this.currentItems == 0) {
 			this.currentItems++;
 			// weapon = new Weapon("Sword", 10, this.heroLevel);
@@ -137,12 +142,12 @@ public class StartGame {
 		if (this.xcoord == 0 || this.ycoord == 0 || this.xcoord == this.mapLimit || this.ycoord == this.mapLimit) {
 			System.out.println("map limits reached");
 			this.heroExp = this.heroExp + this.mapExp;
-			if (this.heroExp > levelUpExp) {
-				this.expOverflow = this.heroExp - this.levelUpExp;
-			}
-			else if (this.heroExp == this.levelUpExp) {
+			if (this.heroExp >= this.levelUpExp) {
+				// this.heroExp
 				UpdateHero.updateHero(this.heroName, this.heroClass, this.heroLevel, this.heroExp, this.attack, this.defense, this.hp, this.currentItems, this.xcoord, this.ycoord);
 				System.out.println("You have levelled up");
+				StartGame startGame =  new StartGame(this.gameMode, this.heroLevel, this.heroName, this.xcoord, this.ycoord);
+				startGame.renderMap(userInput);
 			}
 		}
 		// System.out.println(arr);
