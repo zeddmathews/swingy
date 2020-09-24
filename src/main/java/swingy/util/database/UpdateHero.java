@@ -15,21 +15,21 @@ public class UpdateHero {
 				System.out.println("Checking database status");
 
 				String sql =
-					"UPDATE heroes" +
-					"SET heroName = ?, heroClass = ?, heroLevel = ?, heroExp = ?, " +
-					"attack = ?, defense = ?, hp = ?, inventory = ?, currentX = ?, currentY = ?";
+					"UPDATE heroes " +
+					"SET heroLevel = ?, heroExp = ?, " +
+					"attack = ?, defense = ?, hp = ?, inventory = ?, currentX = ?, currentY = ? " +
+					"WHERE heroName = ?";
 				preparedStatement = conn.prepareStatement(sql);
-				preparedStatement.setString(1, heroName);
-				preparedStatement.setString(2, heroClass);
-				preparedStatement.setInt(3, heroLevel);
-				preparedStatement.setInt(4, heroExp);
-				preparedStatement.setInt(5, attack);
-				preparedStatement.setInt(6, defense);
-				preparedStatement.setInt(7, hp);
-				preparedStatement.setInt(8, inventory);
-				preparedStatement.setInt(9, x);
-				preparedStatement.setInt(10, y);
-				preparedStatement.execute();
+				preparedStatement.setInt(1, heroLevel);
+				preparedStatement.setInt(2, heroExp);
+				preparedStatement.setInt(3, attack);
+				preparedStatement.setInt(4, defense);
+				preparedStatement.setInt(5, hp);
+				preparedStatement.setInt(6, inventory);
+				preparedStatement.setInt(7, x);
+				preparedStatement.setInt(8, y);
+				preparedStatement.setString(9, heroName);
+				preparedStatement.executeUpdate();
 			}
 			catch (SQLException sqle) {
 				sqle.printStackTrace();

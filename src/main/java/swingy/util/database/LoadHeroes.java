@@ -91,6 +91,7 @@ public class LoadHeroes {
 			arrayList.add(rSet.getString("heroName") + " " + rSet.getString("heroClass") + " " + rSet.getInt("heroLevel"));
 			arrayList.add("Exp: " + rSet.getInt("heroExp") + "/" + resultSet.getInt("expRequired"));
 			arrayList.add("Atk: " + rSet.getInt("attack") + " " + "Def: " + rSet.getInt("defense") + " " + "HP: " + rSet.getInt("hp"));
+			arrayList.add("Inventory: " + rSet.getInt("inventory") + "/10");
 		}
 		catch (SQLException sqle) {
 			sqle.printStackTrace();
