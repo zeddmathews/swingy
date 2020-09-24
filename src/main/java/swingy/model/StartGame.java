@@ -4,30 +4,17 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import swingy.model.artifacts.Armour;
+import swingy.model.artifacts.Helm;
+import swingy.model.artifacts.Weapon;
 import swingy.util.database.LoadHeroes;
 import swingy.util.database.UpdateHero;
 
 public class StartGame {
-	// public String gameMode;
-	// public Game(String gameMode) {
-	// 	this.gameMode = gameMode;
-	// }
-
-	// public void startGame() {
-	// 	if (this.gameMode.equals("console")) {
-
-	// 	}
-	// 	else if (this.gameMode.equals("gui")) {
-
-	// 	}
-	// 	else {
-	// 		throw new StandardException("Invalid input type");
-	// 	}
-	// }
 	protected String gameMode;
-	protected int level;
 	protected String heroName;
 	protected String heroClass;
+	protected int heroLevel;
 	protected ArrayList<String> aList = new ArrayList<String>();
 	protected int xcoord;
 	protected int ycoord;
@@ -38,6 +25,12 @@ public class StartGame {
 	protected int attack;
 	protected int defense;
 	protected int hp;
+	protected int mapLimit;
+	protected int expOverflow;
+	//default weapon variables
+	Weapon weapon;
+	protected Armour armour;
+	protected Helm helm;
 	protected final String[] directions = {
 		"north",
 		"south",
@@ -47,14 +40,15 @@ public class StartGame {
 
 	public StartGame(String gameMode, int heroLevel, String heroName, int xcoord, int ycoord) {
 		this.gameMode = gameMode;
-		this.level = heroLevel;
+		this.heroLevel = heroLevel;
 		this.heroName = heroName;
 		this.xcoord = xcoord;
 		this.ycoord = ycoord;
 	}
 
 	public void renderMap(Scanner userInput) {
-		final int formula = (this.level - 1) * 5 + 10 - (this.level % 2);
+		final int formula = (this.heroLevel - 1) * 5 + 10 - (this.heroLevel % 2);
+		this.mapLimit = formula;
 		System.out.println(formula);
 		System.out.println(xcoord + " " + ycoord);
 		aList = LoadHeroes.loadHero(this.heroName);
@@ -64,7 +58,7 @@ public class StartGame {
 			if (splinter.length == 3 && countData == 1) {
 				this.heroName = splinter[0];
 				this.heroClass = splinter[1];
-				this.level = Integer.parseInt(splinter[2]);
+				this.heroLevel = Integer.parseInt(splinter[2]);
 			}
 			if (splinter.length == 2 && countData == 2) {
 				String scatter[] = splinter[1].split("/");
@@ -83,8 +77,10 @@ public class StartGame {
 			}
 			countData++;
 		}
-		if (this.level == 1 && this.currentItems == 0) {
+		if (this.heroLevel == 1 && this.currentItems == 0) {
 			this.currentItems++;
+			weapon = new Weapon("Sword", 10, this.heroLevel);
+			
 			System.out.println("give item");
 		}
 		System.out.println("The point of the game is to, other than waste one's time, get to the outer edges of the map.");
@@ -123,7 +119,7 @@ public class StartGame {
 			}
 			else if (movement.equals("quit")) {
 				System.out.println("Saving progress");
-				UpdateHero.updateHero(this.heroName, this.heroClass, this.level, this.heroExp, this.attack, this.defense, this.hp, this.currentItems, this.xcoord, this.ycoord);
+				UpdateHero.updateHero(this.heroName, this.heroClass, this.heroLevel, this.heroExp, this.attack, this.defense, this.hp, this.currentItems, this.xcoord, this.ycoord);
 				//don't forget to update shit
 				System.out.println("Shutting down swingy...");
 				System.exit(0);
@@ -132,7 +128,10 @@ public class StartGame {
 				System.out.println("Feels random input");
 			}
 
-		} while (xcoord > 0 || ycoord > 0 || xcoord < 9 || ycoord < 9);
+		} while (xcoord > 0 || ycoord > 0 || xcoord < this.mapLimit || ycoord < this.mapLimit);
+		if (xcoord == 0 || ycoord == 0 || xcoord == this.mapLimit || ycoord == this.mapLimit) {
+
+		}
 		// System.out.println(arr);
 	}
 }
