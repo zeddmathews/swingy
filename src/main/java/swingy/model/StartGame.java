@@ -107,6 +107,18 @@ public class StartGame {
 				);
 			String movement = userInput.nextLine().toLowerCase();
 			if (Arrays.asList(this.directions).contains(movement)) {
+				if (movement.equals("north")) {
+					this.ycoord++;
+				}
+				else if (movement.equals("south")) {
+					this.ycoord--;
+				}
+				else if (movement.equals("east")) {
+					this.xcoord++;
+				}
+				else if (movement.equals("west")) {
+					this.xcoord--;
+				}
 				System.out.println("Such waow");
 			}
 			else if (movement.equals("quit")) {
