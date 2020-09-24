@@ -4,9 +4,12 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import swingy.model.artifacts.Armour;
-import swingy.model.artifacts.Helm;
-import swingy.model.artifacts.Weapon;
+import swingy.controller.ArtifactController;
+// import swingy.model.artifacts.Armour;
+// import swingy.model.artifacts.Helm;
+// import swingy.model.artifacts.Weapon;
+import swingy.util.ArtifactCreator;
+import swingy.util.database.InventoryManagement;
 import swingy.util.database.LoadHeroes;
 import swingy.util.database.UpdateHero;
 
@@ -27,10 +30,11 @@ public class StartGame {
 	protected int hp;
 	protected int mapLimit;
 	protected int expOverflow;
-	//default weapon variables
-	Weapon weapon;
-	protected Armour armour;
-	protected Helm helm;
+	protected ArrayList<ArtifactController> artifactList = new ArrayList<ArtifactController>();
+	// //default weapon variables
+	// Weapon weapon;
+	// protected Armour armour;
+	// protected Helm helm;
 	protected final String[] directions = {
 		"north",
 		"south",
@@ -77,10 +81,12 @@ public class StartGame {
 			}
 			countData++;
 		}
+		System.out.println(this.currentItems);
 		if (this.heroLevel == 1 && this.currentItems == 0) {
 			this.currentItems++;
-			weapon = new Weapon("Sword", 10, this.heroLevel);
-			
+			// weapon = new Weapon("Sword", 10, this.heroLevel);
+			artifactList.add(ArtifactCreator.newArtifact("weapon", 10, this.heroLevel));
+			InventoryManagement.addItem(this.heroName, "weapon", "attack", artifactList.get(0).generateStats(this.heroLevel));
 			System.out.println("give item");
 		}
 		System.out.println("The point of the game is to, other than waste one's time, get to the outer edges of the map.");
