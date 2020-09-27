@@ -1,6 +1,7 @@
 package swingy.controller;
 
 public interface EnemyController {
-	String expDropped();
+	int expDropped();
+	String[] enemyData();
 	//possible artifacts??
 }

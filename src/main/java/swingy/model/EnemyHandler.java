@@ -22,10 +22,10 @@ public class EnemyHandler {
 			for (int i = 0; i < numberOfEnemies; i++) {
 				enemyTier = random.nextInt(2 - 1 + 1) + 1;
 				if (enemyTier == 1) {
-					enemyList.add(EnemyCreator.newCharacter("tier1"));
+					enemyList.add(EnemyCreator.newCharacter("tier1", heroLevel));
 				}
 				else if (enemyTier == 2) {
-					enemyList.add(EnemyCreator.newCharacter("tier2"));
+					enemyList.add(EnemyCreator.newCharacter("tier2", heroLevel));
 				}
 			}
 		}
@@ -36,10 +36,10 @@ public class EnemyHandler {
 			for (int i = 0; i < numberOfEnemies; i++) {
 				enemyTier = random.nextInt(3 - 2 + 1) + 2;
 				if (enemyTier == 2) {
-					enemyList.add(EnemyCreator.newCharacter("tier2"));
+					enemyList.add(EnemyCreator.newCharacter("tier2", heroLevel));
 				}
 				else if (enemyTier == 3) {
-					enemyList.add(EnemyCreator.newCharacter("tier3"));
+					enemyList.add(EnemyCreator.newCharacter("tier3", heroLevel));
 				}
 			}
 		}
@@ -50,10 +50,10 @@ public class EnemyHandler {
 			for (int i = 0; i < numberOfEnemies; i++) {
 				enemyTier = random.nextInt(4 - 3 + 1) + 3;
 				if (enemyTier == 3) {
-					enemyList.add(EnemyCreator.newCharacter("tier3"));
+					enemyList.add(EnemyCreator.newCharacter("tier3", heroLevel));
 				}
 				else if (enemyTier == 4) {
-					enemyList.add(EnemyCreator.newCharacter("boss"));
+					enemyList.add(EnemyCreator.newCharacter("boss", heroLevel));
 				}
 			}
 		}
