@@ -1,4 +1,4 @@
 #!/bin/bash
 
 mvn clean package
-mysql -u root -p
+java -jar ./target/swingy.jar $1

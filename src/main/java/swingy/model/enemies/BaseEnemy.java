@@ -1,5 +1,7 @@
 package swingy.model.enemies;
 
+import java.util.Random;
+
 import javax.validation.constraints.*;
 
 public abstract class BaseEnemy {
@@ -34,4 +36,21 @@ public abstract class BaseEnemy {
 	}
 
 	public abstract String[] enemyData();
+
+	public String generateArtifact(boolean dropped) {
+		String artifactDropped = null;
+		String[] artifacts = {
+			"armour",
+			"helm",
+			"weapon"
+		};
+		if (dropped == true) {
+			Random random = new Random();
+			artifactDropped = artifacts[random.nextInt(3)];
+		}
+		else {
+			artifactDropped = "fail";
+		}
+		return (artifactDropped);
+	}
 }

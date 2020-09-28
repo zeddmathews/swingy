@@ -7,8 +7,8 @@ import java.util.Random;
 import swingy.controller.ArtifactController;
 
 public class Helm extends Artifacts implements ArtifactController {
-	public Helm(String type, int stats, int heroLevel) {
-		super(type, stats, heroLevel);
+	public Helm(String type, int heroLevel) {
+		super(type, heroLevel);
 		this.type = "helm";
 	}
 	@Override

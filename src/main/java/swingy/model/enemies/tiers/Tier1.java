@@ -11,6 +11,10 @@ public class Tier1 extends BaseEnemy implements EnemyController {
 	}
 
 	public int expDropped() {
+		return 0;
+	}
+
+	public boolean artifactDropped() {
 		int chance = this.artifactChance(this.enemyTier);
 		Random r = new Random();
 		boolean dropped = false;
@@ -24,7 +28,7 @@ public class Tier1 extends BaseEnemy implements EnemyController {
 		if (dropped == false) {
 			System.out.println("Dropping default item");
 		}
-		return (0);
+		return (dropped);
 	}
 	@Override
 	public String[] enemyData() {

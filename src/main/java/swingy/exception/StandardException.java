@@ -7,7 +7,12 @@ public class StandardException extends Exception {
 		super(err);
 	}
 
-	public void usage() {
-		System.out.println("why such stoopid");
+	public static void usage() {
+		System.out.println("Usage:");
+		System.out.println(" -> $java -jar ./target/swingy.jar \"mode\"");
+		System.out.println(" -> $./compile.sh \"mode\"");
+		System.out.println("Mode options:");
+		System.out.println(" ->Console");
+		System.out.println(" ->GUI");
 	}
 }

@@ -19,6 +19,7 @@ public class Main {
 				throw new StandardException("Invalid number of arguments");
 			}
 			else if (!args[0].toLowerCase().equals("console") && !args[0].toLowerCase().equals("gui")) {
+				StandardException.usage();
 				throw new StandardException(args[0] + " is not a valid argument");
 			}
 			else {

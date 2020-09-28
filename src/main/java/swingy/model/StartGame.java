@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import swingy.controller.ArtifactController;
+import swingy.controller.EnemyController;
+import swingy.exception.StandardException;
 // import swingy.model.artifacts.Armour;
 // import swingy.model.artifacts.Helm;
 // import swingy.model.artifacts.Weapon;
@@ -25,13 +27,19 @@ public class StartGame {
 	protected int heroExp;
 	protected int levelUpExp;
 	protected int currentItems;
-	protected int maxItems;
 	protected int attack;
 	protected int defense;
 	protected int hp;
+	protected int maxItems;
+
 	protected int mapLimit;
 	protected int mapExp;
+
 	protected ArrayList<ArtifactController> artifactList = new ArrayList<ArtifactController>();
+	protected ArrayList<EnemyController> enemyList = new ArrayList<EnemyController>();
+
+	protected int enemies = 0;
+	protected boolean firstSpawn = true;
 	protected final String[] directions = {
 		"north",
 		"south",
@@ -47,7 +55,7 @@ public class StartGame {
 		this.ycoord = ycoord;
 	}
 
-	public void renderMap(Scanner userInput) {
+	public void renderMap(Scanner userInput) throws StandardException {
 		final int formula = (this.heroLevel - 1) * 5 + 10 - (this.heroLevel % 2);
 		this.mapLimit = formula;
 		System.out.println(formula);
@@ -78,7 +86,6 @@ public class StartGame {
 			}
 			countData++;
 		}
-		// System.out.println(this.currentItems);
 		this.mapExp = LevelUp.fetchMapExp(this.heroLevel);
 		if (this.heroExp == this.levelUpExp) {
 			this.heroLevel = this.heroLevel + 1;
@@ -87,11 +94,15 @@ public class StartGame {
 			startGame.renderMap(userInput);
 		}
 		if (this.heroLevel == 1 && this.currentItems == 0) {
-			this.currentItems++;
-			// weapon = new Weapon("Sword", 10, this.heroLevel);
-			artifactList.add(ArtifactCreator.newArtifact("weapon", 10, this.heroLevel));
+			artifactList.add(ArtifactCreator.newArtifact("weapon", this.heroLevel));
 			InventoryManagement.addItem(this.heroName, "weapon", "attack", artifactList.get(0).generateStats(this.heroLevel));
+			this.currentItems++;
+			artifactList.remove(0);
 			System.out.println("give item");
+		}
+		if (this.enemies == 0 && this.firstSpawn == true) {
+			enemyList = EnemyHandler.enemyHandler(this.heroLevel);
+			this.enemies = enemyList.size();
 		}
 		System.out.println("The point of the game is to, other than waste one's time, get to the outer edges of the map.");
 		System.out.println("You have access to 4 directions of movement: \n->North\t->South\t->East\t->West");
@@ -103,6 +114,13 @@ public class StartGame {
 			}
 			System.out.println("You find yourself in a random location (I don't care where; use your imagination)");
 			System.out.println("You think to yourself, \"I should probably wander around and kill anything I come across because they're probably hostile and I have nothing better to do with my time anyways\".");
+			if (enemies > 0) {
+				System.out.println("There are " + enemies + " on the map.");
+				System.out.println("Seek out enemies for experience points and a chance at some loot");
+			}
+			else if (enemies == 0) {
+				System.out.println("There are no more enemies on the map");
+			}
 			System.out.println(
 				"Pick a direction to move in:\n" +
 				"\t->\"North\"" +
@@ -130,7 +148,6 @@ public class StartGame {
 			else if (movement.equals("quit")) {
 				System.out.println("Saving progress");
 				UpdateHero.updateHero(this.heroName, this.heroClass, this.heroLevel, this.heroExp, this.attack, this.defense, this.hp, this.currentItems, this.xcoord, this.ycoord);
-				//don't forget to update shit
 				System.out.println("Shutting down swingy...");
 				System.exit(0);
 			}
@@ -142,14 +159,13 @@ public class StartGame {
 		if (this.xcoord == 0 || this.ycoord == 0 || this.xcoord == this.mapLimit || this.ycoord == this.mapLimit) {
 			System.out.println("map limits reached");
 			this.heroExp = this.heroExp + this.mapExp;
+			this.firstSpawn = true;
 			if (this.heroExp >= this.levelUpExp) {
-				// this.heroExp
 				UpdateHero.updateHero(this.heroName, this.heroClass, this.heroLevel, this.heroExp, this.attack, this.defense, this.hp, this.currentItems, this.xcoord, this.ycoord);
 				System.out.println("You have levelled up");
 				StartGame startGame =  new StartGame(this.gameMode, this.heroLevel, this.heroName, this.xcoord, this.ycoord);
 				startGame.renderMap(userInput);
 			}
 		}
-		// System.out.println(arr);
 	}
 }

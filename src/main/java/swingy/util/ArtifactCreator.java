@@ -4,15 +4,15 @@ import swingy.model.artifacts.*;
 import swingy.controller.ArtifactController;
 
 public abstract class ArtifactCreator {
-	public static ArtifactController newArtifact(String type, int stats, int heroLevel) {
+	public static ArtifactController newArtifact(String type, int heroLevel) {
 		if (type.toLowerCase().equals("helm")) {
-			return new Helm(type, stats, heroLevel);
+			return new Helm(type, heroLevel);
 		}
 		else if (type.toLowerCase().equals("armour")) {
-			return new Armour(type, stats, heroLevel);
+			return new Armour(type, heroLevel);
 		}
 		else if (type.toLowerCase().equals("weapon")) {
-			return new Weapon(type, stats, heroLevel);
+			return new Weapon(type, heroLevel);
 		}
 		else {
 			return null;

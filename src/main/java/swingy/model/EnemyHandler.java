@@ -1,6 +1,7 @@
 package swingy.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import swingy.controller.EnemyController;
@@ -58,5 +59,10 @@ public class EnemyHandler {
 			}
 		}
 		return (enemyList);
+	}
+
+	public static HashMap<String, String> enemyPositions() {
+		HashMap<String, String> enemyPositions = new HashMap<>();
+		return (enemyPositions);
 	}
 }

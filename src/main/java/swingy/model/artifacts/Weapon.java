@@ -7,8 +7,8 @@ import java.util.Random;
 import swingy.controller.ArtifactController;
 
 public class Weapon extends Artifacts implements ArtifactController {
-	public Weapon(String type, int stats, int heroLevel) {
-		super(type, stats, heroLevel);
+	public Weapon(String type, int heroLevel) {
+		super(type, heroLevel);
 	}
 
 	public int generateStats(int heroLevel) {
