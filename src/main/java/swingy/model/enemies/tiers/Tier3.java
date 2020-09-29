@@ -33,7 +33,12 @@ public class Tier3 extends BaseEnemy implements EnemyController {
 
 	@Override
 	public String[] enemyData() {
-		String[] eData = {};
+		Random random = new Random();
+		String[] eData = {
+			this.enemyTier + Integer.toString(random.nextInt(5887456 - 4857445 + 1) + 4857445), //name
+			"3",
+			"30"
+		};
 		return (eData);
 	}
 }

@@ -61,8 +61,28 @@ public class EnemyHandler {
 		return (enemyList);
 	}
 
-	public static HashMap<String, String> enemyPositions() {
+	public static HashMap<String, String> enemyPositions(ArrayList<EnemyController> enemyList, int mapLimit, int heroX, int heroY) {
 		HashMap<String, String> enemyPositions = new HashMap<>();
+		Random random = new Random();
+		int enemyX;
+		int enemyY;
+		String enemyHp = null;
+		for (EnemyController enemyController : enemyList) {
+			enemyX = random.nextInt(mapLimit);
+			enemyY = random.nextInt(mapLimit);
+			enemyHp = enemyController.enemyData()[2];
+			if (enemyX == heroX) {
+				while (enemyX == heroX) {
+					enemyX = random.nextInt(mapLimit);
+				}
+			}
+			if (enemyY == heroY) {
+				while (enemyY == heroY) {
+					enemyY = random.nextInt(mapLimit);
+				}
+			}
+			enemyPositions.put(enemyController.enemyData()[0], Integer.toString(enemyX) + " " + Integer.toString(enemyY) + " " + enemyHp);
+		}
 		return (enemyPositions);
 	}
 }
