@@ -1,7 +1,6 @@
 package swingy.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 import swingy.controller.EnemyController;
@@ -61,8 +60,8 @@ public class EnemyHandler {
 		return (enemyList);
 	}
 
-	public static HashMap<String, String> enemyPositions(ArrayList<EnemyController> enemyList, int mapLimit, int heroX, int heroY) {
-		HashMap<String, String> enemyPositions = new HashMap<>();
+	public static ArrayList<String>enemyPositions(ArrayList<EnemyController> enemyList, int mapLimit, int heroX, int heroY) {
+		ArrayList<String> enemyPositions = new ArrayList<String>();
 		Random random = new Random();
 		int enemyX;
 		int enemyY;
@@ -81,7 +80,7 @@ public class EnemyHandler {
 					enemyY = random.nextInt(mapLimit);
 				}
 			}
-			enemyPositions.put(enemyController.enemyData()[0], Integer.toString(enemyX) + " " + Integer.toString(enemyY) + " " + enemyHp);
+			enemyPositions.add(enemyController.enemyData()[0] + " " + Integer.toString(enemyX) + " " + Integer.toString(enemyY) + " " + enemyHp);
 		}
 		return (enemyPositions);
 	}

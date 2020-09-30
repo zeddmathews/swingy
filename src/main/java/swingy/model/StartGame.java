@@ -41,12 +41,13 @@ public class StartGame {
 
 	protected ArrayList<ArtifactController> artifactList = new ArrayList<ArtifactController>();
 	protected ArrayList<EnemyController> enemyList = new ArrayList<EnemyController>();
-	protected HashMap<String, String> enemyLocations = new HashMap<String, String>();
+	protected ArrayList<String> enemyLocations = new ArrayList<String>();
 
 	protected int enemies = 0;
 	protected int enemyCurHp = 0;
 	protected boolean firstSpawn = true;
 	protected boolean amFight = false;
+	protected String fightName;
 	protected final String[] directions = {
 		"north",
 		"south",
@@ -111,14 +112,13 @@ public class StartGame {
 			InventoryManagement.addItem(this.heroName, "weapon", "attack", artifactList.get(0).generateStats(this.heroLevel));
 			this.currentItems++;
 			artifactList.remove(0);
-			System.out.println("give item");
 		}
 		if (this.enemies == 0 && this.firstSpawn == true) {
 			enemyList = EnemyHandler.enemyHandler(this.heroLevel);
 			this.enemies = enemyList.size();
-			enemyLocations = EnemyHandler.enemyPositions(enemyList, mapLimit, this.xCoord, this.yCoord);
-			for (Map.Entry<String, String> mEntry : enemyLocations.entrySet()) {
-				System.out.println(mEntry.getKey() + mEntry.getValue());
+			enemyLocations = EnemyHandler.enemyPositions(enemyList, this.mapLimit, this.xCoord, this.yCoord);
+			for (String places : enemyLocations) {
+				System.out.println(places);
 			}
 		}
 		System.out.println("The point of the game is to, other than waste one's time, get to the outer edges of the map.");
@@ -131,11 +131,11 @@ public class StartGame {
 			}
 			System.out.println("You find yourself in a random location (I don't care where; use your imagination)");
 			System.out.println("You think to yourself, \"I should probably wander around and kill anything I come across because they're probably hostile and I have nothing better to do with my time anyways\".");
-			if (enemies > 0) {
-				System.out.println("There are " + enemies + " enemies on the map.");
+			if (this.enemies > 0) {
+				System.out.println("There are " + this.enemies + " enemies on the map.");
 				System.out.println("Seek out enemies for experience points and a chance at some loot");
 			}
-			else if (enemies == 0) {
+			else if (this.enemies == 0) {
 				System.out.println("There are no more enemies on the map");
 			}
 			System.out.println(
@@ -162,16 +162,15 @@ public class StartGame {
 				else if (movement.equals("west")) {
 					this.xCoord--;
 				}
-				String fightName = null;
-				for (Map.Entry<String, String> mEntry : enemyLocations.entrySet()) {
-					// System.out.println(mEntry);
-					String shards[] = mEntry.getValue().split(" ");
+				for (String badPeople : enemyLocations) {
+					String shards[] = badPeople.split(" ");
 					System.out.println(shards[0]);
 					System.out.println(shards[1]);
 					System.out.println(shards[2]);
-					if (Integer.parseInt(shards[0]) == this.xCoord && Integer.parseInt(shards[1]) == this.yCoord) {
-						fightName = mEntry.getKey();
-						this.enemyCurHp = Integer.parseInt(shards[2]);
+					System.out.println(shards[3]);
+					if (Integer.parseInt(shards[1]) == this.xCoord && Integer.parseInt(shards[2]) == this.yCoord) {
+						this.fightName = shards[0];
+						this.enemyCurHp = Integer.parseInt(shards[3]);
 						System.out.println("You have encountered an enemy");
 						this.amFight = true;
 						break ;
@@ -185,22 +184,31 @@ public class StartGame {
 						String wantSomeFight = userInput.nextLine().toLowerCase();
 						if (Arrays.asList(this.fightOptions).contains(wantSomeFight)) {
 							if (wantSomeFight.equals("fight")) {
-								for (EnemyController enemyController : enemyList) {
-									if (enemyController.enemyData()[0].equals(fightName)) {
-										System.out.println("You attacked" + fightName + " and did " + this.attack + " damage");
-										this.enemyCurHp = this.enemyCurHp - this.attack;
-									}
-									if (this.enemyCurHp <= 0) {
-										System.out.println(fightName + " has been defeated");
-										int buyBye = 0;
-										for (EnemyController deadGuys : enemyList) {
-											if (deadGuys.enemyData()[0].equals(fightName)) {
-												enemyList.remove(buyBye);
-												this.amFight = false;
-												break ;
-											}
-											buyBye++;
+								System.out.println("want some fight?");
+								if (this.enemyCurHp > 0) {
+									System.out.println("You attacked" + this.fightName + " and did " + this.attack + " damage");
+									this.enemyCurHp = this.enemyCurHp - this.attack;
+								}
+								if (this.enemyCurHp <= 0) {
+									System.out.println(this.fightName + " has been defeated");
+									int buyBye = 0;
+									for (EnemyController deadGuys : enemyList) {
+										if (deadGuys.enemyData()[0].equals(this.fightName)) {
+											enemyList.remove(buyBye);
+											this.enemies--;
+											break ;
 										}
+										buyBye++;
+									}
+									buyBye = 0;
+									for (String ded : enemyLocations) {
+										String shatter[] = ded.split(" ");
+										if (shatter[0].equals(this.fightName)) {
+											enemyLocations.remove(buyBye);
+											this.amFight = false;
+											break ;
+										}
+										buyBye++;
 									}
 								}
 							}
