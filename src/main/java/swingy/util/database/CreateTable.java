@@ -171,14 +171,25 @@ public class CreateTable {
 			int results = rSet.getInt(1);
 			if (results == 0) {
 				sql =
-					"INSERT INTO levels" +
-					"(heroLevel, expRequired, expGained)" +
-					"VALUES(?, ?, ?)";
+				"INSERT INTO levels" +
+				"(heroLevel, expRequired, expGained)" +
+				"VALUES(?, ?, ?)";
 				preparedStatement = conn.prepareStatement(sql);
 				for (int i = 1; i <= 10; i++) {
+					int base = i - 1, exponent = 2;
+
+					int result = 1;
+
+					while (exponent != 0)
+					{
+						result *= base;
+						--exponent;
+					}
+					int formula = i * 1000 + (result) * 450;
+					// level*1000+(level − 1)2*450
 					preparedStatement.setInt(1, i);
-					preparedStatement.setInt(2, (i * 100));
-					preparedStatement.setInt(3, (i * 10));
+					preparedStatement.setInt(2, formula);
+					preparedStatement.setInt(3, formula/4);
 					preparedStatement.execute();
 				}
 			}

@@ -3,15 +3,10 @@ package swingy.model;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import swingy.controller.ArtifactController;
 import swingy.controller.EnemyController;
 import swingy.exception.StandardException;
-// import swingy.model.artifacts.Armour;
-// import swingy.model.artifacts.Helm;
-// import swingy.model.artifacts.Weapon;
 import swingy.util.ArtifactCreator;
 import swingy.util.database.InventoryManagement;
 import swingy.util.database.LevelUp;
