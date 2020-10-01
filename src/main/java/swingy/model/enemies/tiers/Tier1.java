@@ -30,14 +30,14 @@ public class Tier1 extends BaseEnemy implements EnemyController {
 		}
 		return (dropped);
 	}
-	@Override
-	public String[] enemyData() {
-		Random random = new Random();
-		String[] eData = {
-			this.enemyTier + Integer.toString(random.nextInt(5887456 - 4857445 + 1) + 4857445), //name
-			"1",
-			"10"
-		};
-		return (eData);
-	}
+	// @Override
+	// public String[] enemyData() {
+	// 	Random random = new Random();
+	// 	String[] eData = {
+	// 		this.enemyTier + Integer.toString(random.nextInt(5887456 - 4857445 + 1) + 4857445), //name
+	// 		"1",
+	// 		"10"
+	// 	};
+	// 	return (eData);
+	// }
 }

@@ -21,61 +21,66 @@ public class LoadHero {
 		try {
 			String newInput = null;
 			aList = LoadHeroes.loadHeroes();
-			for (String heroData : aList) {
-				String[] split = heroData.split(" ");
-				heroName.add(split[0]);
-				heroLevel.add(split[1]);
-				xcoord.add(split[2]);
-				ycoord.add(split[3]);
-			}
-			System.out.println(heroLevel);
-			do {
-				System.out.println("Please select a hero");
-				for (String hName : heroName) {
-					System.out.println(hName);
+			if (aList.size() > 0) {
+				for (String heroData : aList) {
+					String[] split = heroData.split(" ");
+					heroName.add(split[0]);
+					heroLevel.add(split[1]);
+					xcoord.add(split[2]);
+					ycoord.add(split[3]);
 				}
-				System.out.println("\n\"Cancel\"");
-				try {
-					newInput = userInput.nextLine();
-					newInput = newInput.toLowerCase();
-					if (heroName.contains(newInput)) {
-						System.out.println("such waow");
-						this.loadCharacter = newInput;
-						System.out.println("feelsbadman");
-						while (true) {
-							System.out.println("Are you sure you would like to load the hero: " + newInput);
-							System.out.println("Yes/No");
-							yesNo = userInput.nextLine();
-							yesNo = yesNo.toLowerCase();
-							if (yesNo.equals("yes") || yesNo.equals("y")) {
-								heroSelected = true;
-								break ;
-							}
-							else if (yesNo.equals("no") || yesNo.equals("n")) {
-								this.loadCharacter = null;
-								break ;
-							}
-							else {
-								System.out.println("Invalid option");
+				System.out.println(heroLevel);
+				do {
+					System.out.println("Please select a hero");
+					for (String hName : heroName) {
+						System.out.println(hName);
+					}
+					System.out.println("\n\"Cancel\"");
+					try {
+						newInput = userInput.nextLine();
+						newInput = newInput.toLowerCase();
+						if (heroName.contains(newInput)) {
+							System.out.println("such waow");
+							this.loadCharacter = newInput;
+							System.out.println("feelsbadman");
+							while (true) {
+								System.out.println("Are you sure you would like to load the hero: " + newInput);
+								System.out.println("Yes/No");
+								yesNo = userInput.nextLine();
+								yesNo = yesNo.toLowerCase();
+								if (yesNo.equals("yes") || yesNo.equals("y")) {
+									heroSelected = true;
+									break ;
+								}
+								else if (yesNo.equals("no") || yesNo.equals("n")) {
+									this.loadCharacter = null;
+									break ;
+								}
+								else {
+									System.out.println("Invalid option");
+								}
 							}
 						}
+						else if (newInput.equals("cancel")) {
+							break ;
+						}
+						else {
+							System.out.println("Invalid option");
+						}
 					}
-					else if (newInput.equals("cancel")) {
-						break ;
+					catch (Exception e) {
+						e.printStackTrace();
 					}
-					else {
-						System.out.println("Invalid option");
-					}
+				} while (heroSelected == false);
+				if (heroSelected == true) {
+					int getIndex = heroName.indexOf(newInput);
+					startGame = new StartGame("console", Integer.parseInt(heroLevel.get(getIndex)), this.loadCharacter,
+							Integer.parseInt(xcoord.get(getIndex)), Integer.parseInt(ycoord.get(getIndex))); // need to make alist give int level
+					startGame.renderMap(userInput);
 				}
-				catch (Exception e) {
-					e.printStackTrace();
-				}
-			} while (heroSelected == false);
-			if (heroSelected == true) {
-				int getIndex = heroName.indexOf(newInput);
-				startGame = new StartGame("console", Integer.parseInt(heroLevel.get(getIndex)), this.loadCharacter,
-						Integer.parseInt(xcoord.get(getIndex)), Integer.parseInt(ycoord.get(getIndex))); // need to make alist give int level
-				startGame.renderMap(userInput);
+			}
+			else if (aList.size() == 0) {
+				System.out.println("No heroes to load");
 			}
 		}
 		catch (Exception e) {

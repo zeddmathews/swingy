@@ -1,6 +1,7 @@
 package swingy.util.database;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class InventoryManagement {
 	public static void addItem(String heroName, String itemName, String affectedStat, int statValue) {
@@ -11,9 +12,7 @@ public class InventoryManagement {
 		ResultSet rSet = null;
 		try {
 			Class.forName(Database.JDBC_DRIVER);
-			System.out.println("Connection established");
 			conn = DriverManager.getConnection(Database.DB_URL + "swingy", Database.username, Database.password);
-			System.out.println("Checking database status");
 
 			String sql =
 				"INSERT INTO inventory " +
@@ -33,7 +32,6 @@ public class InventoryManagement {
 			rSet.next();
 			int currentInventory = rSet.getInt(1);
 			currentInventory += 1;
-			System.out.println(currentInventory);
 
 			String updateInv = "UPDATE heroes " +
 			"SET inventory = ? " +
@@ -76,5 +74,59 @@ public class InventoryManagement {
 				sqle.printStackTrace();
 			}
 		}
+	}
+	public static ArrayList<String> fetchItems(String heroName) {
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rSet = null;
+		ArrayList<String> items = new ArrayList<String>();
+		try {
+			Class.forName(Database.JDBC_DRIVER);
+			conn = DriverManager.getConnection(Database.DB_URL + "swingy", Database.username, Database.password);
+
+			String sql =
+				"SELECT heroName, itemName, affectedStat, statValue FROM inventory WHERE heroName = ?";
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, heroName);
+			preparedStatement.executeQuery();
+			rSet = preparedStatement.executeQuery();
+			while(rSet.next()) {
+				items.add(rSet.getString("heroName") + rSet.getString("itemName") + rSet.getString("affectedStat") + rSet.getInt("statValue"));
+			}
+
+		}
+		catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			}
+			catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			}
+			catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+			try {
+				if (rSet != null) {
+					rSet.close();
+				}
+			}
+			catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+		}
+		return (items);
 	}
 }

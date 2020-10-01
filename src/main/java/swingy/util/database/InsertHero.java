@@ -8,9 +8,7 @@ public class InsertHero {
 		PreparedStatement preparedStatement = null;
 		try {
 			Class.forName(Database.JDBC_DRIVER);
-			System.out.println("Connection established");
 			conn = DriverManager.getConnection(Database.DB_URL + "swingy", Database.username, Database.password);
-			System.out.println("Checking database status");
 
 			String testy =
 				"SELECT COUNT(*) FROM heroes WHERE heroName = ?";
@@ -18,7 +16,6 @@ public class InsertHero {
 			pStatement.setString(1, heroName);
 			ResultSet rSet = pStatement.executeQuery();
 			rSet.next();
-			System.out.println(rSet.getInt(1));
 			if (rSet.getInt(1) == 0) {
 				String sql =
 					"INSERT INTO heroes" +

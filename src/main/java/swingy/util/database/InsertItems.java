@@ -9,9 +9,7 @@ public class InsertItems {
 			PreparedStatement preparedStatement = null;
 			try {
 				Class.forName(Database.JDBC_DRIVER);
-				System.out.println("Connection established");
 				conn = DriverManager.getConnection(Database.DB_URL + "swingy", Database.username, Database.password);
-				System.out.println("Checking database status");
 
 				String sql =
 				"INSERT INTO inventory" +

@@ -13,9 +13,7 @@ public class LoadHeroes {
 		ArrayList<String> arrayList = new ArrayList<String>();
 		try {
 			Class.forName(Database.JDBC_DRIVER);
-			System.out.println("Connection established");
 			conn = DriverManager.getConnection(Database.DB_URL + "swingy", Database.username, Database.password);
-			System.out.println("Checking database");
 			stmt = conn.createStatement();
 
 			String sql = "SELECT heroName, heroClass, heroLevel, heroExp, attack, defense, hp, inventory, currentX, currentY FROM heroes";
@@ -71,9 +69,7 @@ public class LoadHeroes {
 		ArrayList<String> arrayList = new ArrayList<String>();
 		try {
 			Class.forName(Database.JDBC_DRIVER);
-			System.out.println("Connection established");
 			conn = DriverManager.getConnection(Database.DB_URL + "swingy", Database.username, Database.password);
-			System.out.println("Checking database");
 
 			String sql = "SELECT heroName, heroClass, heroLevel, heroExp, attack, defense, hp, inventory FROM heroes WHERE heroName = ?";
 			pStatement = conn.prepareStatement(sql);

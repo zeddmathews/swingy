@@ -9,9 +9,7 @@ public class CheckExists {
 		boolean nameFound = false;
 		try {
 			Class.forName(Database.JDBC_DRIVER);
-			System.out.println("Connection established");
 			conn = DriverManager.getConnection(Database.DB_URL + "swingy", Database.username, Database.password);
-			System.out.println("Checking database status");
 
 			String testy =
 				"SELECT COUNT(*) FROM heroes WHERE heroName = ?";

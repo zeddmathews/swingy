@@ -35,7 +35,28 @@ public abstract class BaseEnemy {
 		return (artifactDropChance);
 	}
 
-	public abstract String[] enemyData();
+	public String[] enemyData() {
+		Random random = new Random();
+		int attack = 0;
+		if (this.enemyTier.equals("tier1")) {
+			attack = 1;
+		}
+		else if (this.enemyTier.equals("tier2")) {
+			attack = 2;
+		}
+		else if (this.enemyTier.equals("tier3")) {
+			attack = 3;
+		}
+		else if (this.enemyTier.equals("boss")) {
+			attack = 5;
+		}
+		String[] eData = {
+			this.enemyTier + Integer.toString(random.nextInt(5887456 - 4857445 + 1) + 4857445), //name
+			Integer.toString(attack),
+			"30"
+		};
+		return (eData);
+	}
 
 	public String generateArtifact(boolean dropped) {
 		String artifactDropped = null;

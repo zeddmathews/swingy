@@ -8,12 +8,9 @@ public class CreateTable {
 		Statement stmt = null;
 		try {
 			Class.forName(Database.JDBC_DRIVER);
-			System.out.println("Connecting to database");
 			conn = DriverManager.getConnection(Database.DB_URL + "swingy", Database.username, Database.password);
-			System.out.println("Connected to database");
 			stmt = conn.createStatement();
 
-			System.out.println("Creating table \"heroes\"");
 			String sql = 	"CREATE TABLE IF NOT EXISTS heroes" +
 							"(" +
 							"id INTEGER NOT NULL AUTO_INCREMENT, " +
@@ -30,7 +27,6 @@ public class CreateTable {
 							"currentY INTEGER(10)" +
 							")";
 			stmt.executeUpdate(sql);
-			System.out.println("Table creation complete");
 		}
 		catch (SQLException sqle) {
 			sqle.printStackTrace();
@@ -62,12 +58,9 @@ public class CreateTable {
 		Statement stmt = null;
 		try {
 			Class.forName(Database.JDBC_DRIVER);
-			System.out.println("Connecting to database");
 			conn = DriverManager.getConnection(Database.DB_URL + "swingy", Database.username, Database.password);
-			System.out.println("Connected to database");
 			stmt = conn.createStatement();
 
-			System.out.println("Creating table \"inventory\"");
 			String sql = 	"CREATE TABLE IF NOT EXISTS inventory" +
 							"(" +
 							"id INTEGER NOT NULL AUTO_INCREMENT, " +
@@ -78,7 +71,6 @@ public class CreateTable {
 							"statValue INTEGER(10)" +
 							")";
 			stmt.executeUpdate(sql);
-			System.out.println("Table creation complete");
 		}
 		catch (SQLException sqle) {
 			sqle.printStackTrace();
@@ -110,12 +102,9 @@ public class CreateTable {
 		Statement stmt = null;
 		try {
 			Class.forName(Database.JDBC_DRIVER);
-			System.out.println("Connecting to database");
 			conn = DriverManager.getConnection(Database.DB_URL + "swingy", Database.username, Database.password);
-			System.out.println("Connected to database");
 			stmt = conn.createStatement();
 
-			System.out.println("Creating table \"levels\"");
 			String sql = 	"CREATE TABLE IF NOT EXISTS levels" +
 							"(" +
 							"id INTEGER NOT NULL AUTO_INCREMENT, " +
@@ -125,7 +114,6 @@ public class CreateTable {
 							"expGained INTEGER(10) NOT NULL" +
 							")";
 			stmt.executeUpdate(sql);
-			System.out.println("Table creation complete");
 		}
 		catch (SQLException sqle) {
 			sqle.printStackTrace();
@@ -159,12 +147,9 @@ public class CreateTable {
 		PreparedStatement preparedStatement = null;
 		try {
 			Class.forName(Database.JDBC_DRIVER);
-			System.out.println("Connecting to database");
 			conn = DriverManager.getConnection(Database.DB_URL + "swingy", Database.username, Database.password);
-			System.out.println("Connected to database");
 			stmt = conn.createStatement();
 
-			System.out.println("Validating table \"levels\"");
 			String sql = "SELECT COUNT(*) FROM levels";
 			rSet = stmt.executeQuery(sql);
 			rSet.next();
@@ -193,7 +178,6 @@ public class CreateTable {
 					preparedStatement.execute();
 				}
 			}
-			System.out.println("Table validation complete");
 		}
 		catch (SQLException sqle) {
 			sqle.printStackTrace();

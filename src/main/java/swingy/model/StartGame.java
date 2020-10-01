@@ -3,6 +3,7 @@ package swingy.model;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.lang.Math;
 
 import swingy.controller.ArtifactController;
 import swingy.controller.EnemyController;
@@ -26,10 +27,18 @@ public class StartGame {
 	protected int heroExp;
 	protected int levelUpExp;
 	protected int currentItems;
-	protected int attack;
 	protected int defense;
 	protected int hp;
+	protected int attack;
 	protected int maxItems;
+
+	protected int armourStat;
+	protected int helmStat;
+	protected int weaponStat;
+
+	protected int affectedDefense;
+	protected int affectedHp;
+	protected int affectedAttack;
 
 	protected int mapLimit;
 	protected int mapExp;
@@ -37,12 +46,14 @@ public class StartGame {
 	protected ArrayList<ArtifactController> artifactList = new ArrayList<ArtifactController>();
 	protected ArrayList<EnemyController> enemyList = new ArrayList<EnemyController>();
 	protected ArrayList<String> enemyLocations = new ArrayList<String>();
+	protected ArrayList<String> fetchItems = new ArrayList<String>();
 
 	protected int enemies = 0;
 	protected int enemyCurHp = 0;
 	protected boolean firstSpawn = true;
 	protected boolean amFight = false;
-	protected String fightName;
+	protected String fightName = null;
+	protected int enemyAttack = 0;
 	protected final String[] directions = {
 		"north",
 		"south",
@@ -102,19 +113,33 @@ public class StartGame {
 			UpdateHero.updateHero(this.heroName, this.heroClass, this.heroLevel, this.heroExp, this.attack, this.defense, this.hp, this.currentItems, this.xCoord, this.yCoord);
 			startGame.renderMap(userInput);
 		}
+		fetchItems = InventoryManagement.fetchItems(heroName);
+		this.currentItems = fetchItems.size();
 		if (this.heroLevel == 1 && this.currentItems == 0) {
 			artifactList.add(ArtifactCreator.newArtifact("weapon", this.heroLevel));
 			InventoryManagement.addItem(this.heroName, "weapon", "attack", artifactList.get(0).generateStats(this.heroLevel));
 			this.currentItems++;
-			artifactList.remove(0);
 		}
+		for (ArtifactController artifacts : artifactList) {
+			if (artifacts.artifactData()[1].equals("armour")) {
+				this.armourStat += Integer.parseInt(artifacts.artifactData()[2]);
+			}
+			else if (artifacts.artifactData()[1].equals("helm")) {
+				this.helmStat += Integer.parseInt(artifacts.artifactData()[2]);
+			}
+			else if (artifacts.artifactData()[1].equals("weapon")) {
+				this.weaponStat += Integer.parseInt(artifacts.artifactData()[2]);
+			}
+		}
+		this.affectedDefense = this.defense + this.armourStat;
+		this.affectedHp = this.hp + this.helmStat;
+		this.affectedAttack = this.attack + this.weaponStat;
+		System.out.println("UYTUYTTUFUYFH " + this.affectedAttack);
+		System.out.println("UYTUYTTUFUYFH " + this.weaponStat);
 		if (this.enemies == 0 && this.firstSpawn == true) {
 			enemyList = EnemyHandler.enemyHandler(this.heroLevel);
 			this.enemies = enemyList.size();
 			enemyLocations = EnemyHandler.enemyPositions(enemyList, this.mapLimit, this.xCoord, this.yCoord);
-			for (String places : enemyLocations) {
-				System.out.println(places);
-			}
 		}
 		System.out.println("The point of the game is to, other than waste one's time, get to the outer edges of the map.");
 		System.out.println("You have access to 4 directions of movement: \n->North\t->South\t->East\t->West");
@@ -129,6 +154,11 @@ public class StartGame {
 			if (this.enemies > 0) {
 				System.out.println("There are " + this.enemies + " enemies on the map.");
 				System.out.println("Seek out enemies for experience points and a chance at some loot");
+				int count = 0;
+				for (String places : enemyLocations) {
+					System.out.println(++count);
+					System.out.println(places);
+				}
 			}
 			else if (this.enemies == 0) {
 				System.out.println("There are no more enemies on the map");
@@ -171,6 +201,11 @@ public class StartGame {
 						break ;
 					}
 				}
+				for (EnemyController stats : enemyList) {
+					if (stats.enemyData()[0].equals(this.fightName)) {
+						this.enemyAttack = Integer.parseInt(stats.enemyData()[1]);
+					}
+				}
 				if (this.amFight == true) {
 					do {
 						System.out.println(this.enemyCurHp);
@@ -181,14 +216,35 @@ public class StartGame {
 							if (wantSomeFight.equals("fight")) {
 								System.out.println("want some fight?");
 								if (this.enemyCurHp > 0) {
-									System.out.println("You attacked" + this.fightName + " and did " + this.attack + " damage");
-									this.enemyCurHp = this.enemyCurHp - this.attack;
+									System.out.println("You attacked " + this.fightName + " and did " + this.affectedAttack + " damage");
+									System.out.println("Enemy " + this.fightName + " retaliated and did " + this.enemyAttack);
+									this.enemyCurHp -= this.affectedAttack;
+									this.affectedHp -= this.enemyAttack;
 								}
-								if (this.enemyCurHp <= 0) {
+								if (this.enemyCurHp <= 0 && this.affectedHp > 0) {
 									System.out.println(this.fightName + " has been defeated");
 									int buyBye = 0;
 									for (EnemyController deadGuys : enemyList) {
 										if (deadGuys.enemyData()[0].equals(this.fightName)) {
+											if (deadGuys.artifactDropped() == true) {
+												String artifact = deadGuys.generateArtifact(true);
+												if (artifact.equals("armour")) {
+													artifactList.add(ArtifactCreator.newArtifact("armour", this.heroLevel));
+													InventoryManagement.addItem(this.heroName, "armour", "hp", artifactList.get(0).generateStats(this.heroLevel));
+												}
+												else if (artifact.equals("helm")) {
+													artifactList.add(ArtifactCreator.newArtifact("helm", this.heroLevel));
+													InventoryManagement.addItem(this.heroName, "helm", "defense", artifactList.get(0).generateStats(this.heroLevel));
+												}
+												else if (artifact.equals("weapon")) {
+													artifactList.add(ArtifactCreator.newArtifact("weapon", this.heroLevel));
+													InventoryManagement.addItem(this.heroName, "weapon", "attack", artifactList.get(0).generateStats(this.heroLevel));
+												}
+												this.currentItems++;
+											}
+											else {
+												System.out.println("RNG doesn't favour you. No artifacts");
+											}
 											enemyList.remove(buyBye);
 											this.enemies--;
 											break ;
@@ -206,11 +262,23 @@ public class StartGame {
 										buyBye++;
 									}
 								}
+								if (this.affectedHp <= 0) {
+									System.out.println("You got rekt");
+									StartGame startGame =  new StartGame(this.gameMode, this.heroLevel, this.heroName, formula/2, formula/2);
+									startGame.renderMap(userInput);
+								}
 							}
 							else if (wantSomeFight.equals("flee")) {
-								this.xCoord = this.lastX;
-								this.yCoord = this.lastY;
-								this.amFight = false;
+								int foo = (int) (Math.random() * 100);
+								if (foo < 51) {
+									this.xCoord = this.lastX;
+									this.yCoord = this.lastY;
+									this.amFight = false;
+									System.out.println("You done chickened tf out");
+								}
+								else if (foo < 101) {
+									System.out.println("Soz kiddo you're fighting");
+								}
 							}
 						}
 						else {
@@ -233,13 +301,13 @@ public class StartGame {
 		} while (this.xCoord > 0 || this.yCoord > 0 || this.xCoord < this.mapLimit || this.yCoord < this.mapLimit);
 		if (this.xCoord == 0 || this.yCoord == 0 || this.xCoord == this.mapLimit || this.yCoord == this.mapLimit) {
 			System.out.println("map limits reached");
-			this.heroExp = this.heroExp + this.mapExp;
+			this.heroExp += this.mapExp;
 			this.firstSpawn = true;
 			if (this.heroExp >= this.levelUpExp) {
-				this.heroLevel = this.heroLevel + 1;
-				this.attack = this.attack + 2;
-				this.defense = this.defense + 2;
-				this.hp = this.hp + 2;
+				this.heroLevel += 1;
+				this.attack += 2;
+				this.defense += 2;
+				this.hp += 2;
 				this.xCoord = formula;
 				this.yCoord = formula;
 				UpdateHero.updateHero(this.heroName, this.heroClass, this.heroLevel, this.heroExp, this.attack, this.defense, this.hp, this.currentItems, this.xCoord, this.yCoord);

@@ -13,9 +13,7 @@ public class Database {
 		Statement stmt = null;
 		try {
 			Class.forName(JDBC_DRIVER);
-			System.out.println("Connection established");
 			conn = DriverManager.getConnection(DB_URL, username, password);
-			System.out.println("Checking database status");
 			stmt = conn.createStatement();
 
 			String sql = "CREATE DATABASE IF NOT EXISTS swingy";

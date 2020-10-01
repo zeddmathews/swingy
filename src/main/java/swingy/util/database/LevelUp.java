@@ -10,9 +10,7 @@ public class LevelUp {
 		int mapExp = 0;
 		try {
 			Class.forName(Database.JDBC_DRIVER);
-			System.out.println("Connection established");
 			conn = DriverManager.getConnection(Database.DB_URL + "swingy", Database.username, Database.password);
-			System.out.println("Checking database");
 
 			String fetchExp = "SELECT expGained FROM levels WHERE heroLevel = ?";
 			pStatement = conn.prepareStatement(fetchExp);
